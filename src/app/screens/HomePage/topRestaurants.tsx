@@ -1,17 +1,15 @@
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import {
-  AspectRatio,
   Card,
   CardContent,
   CardCover,
   CardOverflow,
-  Divider,
   Typography,
   IconButton,
 } from "@mui/joy";
 import { CssVarsProvider } from "@mui/joy";
-import { Favorite, Visibility } from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export function TopRestaurants() {

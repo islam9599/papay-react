@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/App.css";
 import "../css/navbar.css";
 import "../css/footer.css";
-import { Container, Stack, Box, Typography, Button } from "@mui/material";
+import { Container } from "@mui/material";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { RestaurantPage } from "./screens/RestaurantPage";
@@ -20,6 +20,7 @@ import { Footer } from "./components/footer";
 function App() {
   const [path, setPath] = useState();
   const main_paith = window.location.pathname;
+  console.log(main_paith);
 
   return (
     <Router>
@@ -60,11 +61,3 @@ function App() {
 }
 
 export default App;
-
-function Home() {
-  return (
-    <Container>
-      <h2>Home</h2>;
-    </Container>
-  );
-}
