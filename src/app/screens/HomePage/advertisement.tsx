@@ -11,12 +11,11 @@ export function Advertisements() {
         muted
         playsInline
         data-video-media=""
-        src="https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/VZpg_YkTgilrvkdxa/videoblocks-116z_010_kuxnja_bba_vjdjj__9d1218e85b42403dcb753d26a5a3fe67__P360.mp4"
       >
         <source
-          data-src="https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/VZpg_YkTgilrvkdxa/videoblocks-116z_010_kuxnja_bba_vjdjj__9d1218e85b42403dcb753d26a5a3fe67__P360.mp4"
+          data-src="https://fnb-p-c6e19b1675f4.imgix.net/87994cc2-0b2c-4b4e-a402-45c9834c267e/HP-6s-1920x1080-3_def.mp4?auto=compress%2Cformat&amp;fit=min&amp;fm=jpg&amp;q=80"
           type="video/mp4"
-          src="https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/VZpg_YkTgilrvkdxa/videoblocks-116z_010_kuxnja_bba_vjdjj__9d1218e85b42403dcb753d26a5a3fe67__P360.mp4"
+          src="https://fnb-p-c6e19b1675f4.imgix.net/87994cc2-0b2c-4b4e-a402-45c9834c267e/HP-6s-1920x1080-3_def.mp4?auto=compress%2Cformat&amp;fit=min&amp;fm=jpg&amp;q=80"
         />
       </video>
     </div>
