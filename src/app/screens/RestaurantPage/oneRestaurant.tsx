@@ -62,9 +62,9 @@ export function OneRestaurant() {
               slidesPerView={7}
               spaceBetween={30}
               centeredSlides={false}
-              pagination={{
-                clickable: true,
-              }}
+              // pagination={{
+              //   clickable: true,
+              // }}
               className="restaurant_avatars_wrapper"
               navigation={{
                 nextEl: ".restaurant-prev",
@@ -207,9 +207,7 @@ export function OneRestaurant() {
                         style={{ right: "36px" }}
                       >
                         <Badge badgeContent={1000} color="primary">
-                          <Checkbox
-                            icon={<RemoveRedEye style={{ color: "white" }} />}
-                          />
+                          <RemoveRedEye style={{ color: "white" }} />
                         </Badge>
                       </Button>
                     </Stack>
