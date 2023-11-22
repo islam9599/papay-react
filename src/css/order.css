@@ -263,7 +263,7 @@
 }
 
 .order_page .total_price_box .box_total {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -292,7 +292,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 30px;
+
+  margin-right: 10px;
 }
 
 .order_page .total_price_box .total_price_btn button {
