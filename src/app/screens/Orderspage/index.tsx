@@ -30,6 +30,7 @@ export function OrdersPage() {
                     justifyContent: "space-between",
                     maxWidth: "100%",
                   }}
+                  variant="fullWidth"
                 >
                   <Tab label="Buyurtmalarim" value="1" />
                   <Tab label="Jarayonda" value="2" />
@@ -99,7 +100,7 @@ export function OrdersPage() {
               <input
                 className="card_num"
                 type="text"
-                placeholder="Card number : 5243 4090 2002 7495"
+                placeholder="Ergashev Islombek"
               />
             </form>
             <Box className="payment_cards">
