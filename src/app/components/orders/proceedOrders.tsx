@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { TabPanel } from "@mui/lab";
 import Marginer from "../marginer";
 
-const pausedOrders = [[1, 2, 3]];
+const pausedOrders = [[1, 2, 3, 4, 5, 6, 7]];
 export function ProceedOrders() {
   return (
     <div>
@@ -22,9 +22,9 @@ export function ProceedOrders() {
                         style={{
                           width: "50px",
                           height: "47px",
-                          borderRadius: "49px",
+                          borderRadius: "29px",
                           marginLeft: "40px",
-                          marginRight: "20px",
+                          marginRight: "30px",
                         }}
                         alt=""
                       />
