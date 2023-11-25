@@ -1,0 +1,629 @@
+.member_page {
+  width: 100%;
+  height: 100%;
+  background: #0b0e11;
+}
+
+.member_page .my_page {
+  width: 100%;
+  height: auto;
+  background: #0b0e11;
+  display: flex;
+}
+
+.member_page .my_page .my_page_left {
+  width: 60%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.member_page .my_page .my_page_left .menu_name {
+  color: #fff;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.member_page .my_page .my_page_left .my_article_wrapper {
+  width: 100%;
+  height: 170px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #182226;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.member_page .my_page .my_page_left .target_articles_container {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #182226;
+  margin-bottom: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.member_page .my_page .my_page_left .target_articles_container .user_img {
+  width: 100%;
+  height: 175px;
+  flex-shrink: 0;
+  border-radius: 30px 0px 0px 30px;
+  background: lightgray 50% / cover no-repeat;
+}
+
+.member_page .my_page .my_page_left.target_articles_container .author_info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .target_articles_container
+  .author_info
+  img {
+  border-radius: 35px;
+  background: lightgray 50% / cover no-repeat;
+  margin-right: 10px;
+}
+
+.member_page
+  .my_page
+  .my_page_left.target_articles_container
+  .author_info
+  span {
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}
+
+.member_page .my_page .my_page_left .target_articles_container .article_desc {
+  width: 282px;
+  height: 59px;
+  margin-top: 15px;
+}
+.member_page
+  .my_page
+  .my_page_left
+  .target_articles_container
+  .article_desc
+  span {
+  color: #e3c08d;
+  font-family: "Poppins";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.member_page .my_page .my_page_left .target_articles_container .article_date {
+  width: 35%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* margin-top: 6px; */
+  margin-left: 343px;
+  /* margin-bottom: 20px; */
+  margin-right: 14px;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.member_page .my_page .my_page_left.target_articles_container .article_date p {
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+}
+
+.member_page .my_page .my_page_left .menu_content {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 50px; */
+}
+
+.member_page .my_page .my_page_left .member_followers {
+  width: 100%;
+  height: 600px;
+  overflow: scroll;
+  margin-top: 30px;
+  border-radius: 8px;
+}
+
+.member_page .my_page .my_page_left .member_followers_container {
+  width: 100%;
+  height: 140px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  border-radius: 17px;
+  background: linear-gradient(
+    180deg,
+    rgba(38, 112, 129, 0.9) 0%,
+    rgba(21, 61, 70, 0.9) 100%
+  );
+
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15),
+    3px 2px 9px 0px rgba(255, 255, 255, 0.25) inset;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .member_follower_info {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .follower_img
+  img {
+  width: 89px;
+  height: 89px;
+  flex-shrink: 0;
+  border-radius: 89px;
+  background: lightgray 50% / cover no-repeat;
+  margin: 15px;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .member_follower_name {
+  width: 300px;
+  height: 40px;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .member_follower_name
+  span {
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 5px;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .member_follower_name
+  p {
+  color: #fff;
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 5px;
+}
+
+.member_page .my_page .my_page_left .member_followers_container .follow_btn {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .member_followers_container
+  .follow_btn
+  button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 50px;
+
+  text-align: center;
+
+  cursor: pointer;
+  border-radius: 26px;
+  /* background: #68c5cb; */
+  box-shadow: 1px 4px 6px 0px rgba(211, 211, 211, 0.25),
+    0px 4px 4px 0px rgba(255, 255, 255, 0.25) inset;
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.member_page .my_page .my_page_left .my_settings {
+  position: relative;
+  width: 100%;
+  height: 660px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member_page .my_page .my_page_left .my_settings .img_upload_wrapper {
+  width: 100%;
+  height: 120px;
+  border-radius: 5px;
+  background: #f6f6f6;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.member_page .my_page .my_page_left .my_settings .img_upload_wrapper span {
+  color: #140342;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.member_page .my_page .my_page_left .my_settings .img_upload_wrapper p {
+  color: #4f547b;
+  font-family: " Poppins";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.member_page .my_page .my_page_left .my_settings .img_upload_wrapper img {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: lightgray 50% / cover no-repeat;
+  margin: 20px;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_name {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_name label {
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_name input {
+  width: 100%;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f6f6f6;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_phone_adress {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .my_settings
+  .edit_phone_adress
+  .edit_phone {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .my_settings
+  .edit_phone_adress
+  .edit_phone
+  label {
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.member_page
+  .my_page
+  .my_page_left
+  .my_settings
+  .edit_phone_adress
+  .edit_phone
+  input {
+  width: 100%;
+  height: 54px;
+  border-radius: 5px;
+  background: #f6f6f6;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_info {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_info span {
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_info label {
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_info textarea {
+  width: 100%;
+  height: 200px;
+
+  border-radius: 5px;
+  background: #f6f6f6;
+}
+
+.member_page .my_page .my_page_left .my_settings .edit_btn {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 20px;
+}
+.member_page .my_page .my_page_left .my_settings .edit_btn button {
+  width: 150px;
+  height: auto;
+
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.member_page .my_page .my_page_right {
+  width: 39%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member_page .my_page .my_page_right .order_info_box {
+  position: relative;
+  width: 372.58px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  border-radius: 16px;
+  background: #fff;
+
+  box-shadow: 0px 4px 16px 0px rgba(242, 189, 87, 0.04) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.member_page .my_page .my_page_right .order_info_box a {
+  position: absolute;
+  top: 28px;
+  left: 299px;
+}
+
+.member_page .my_page .my_page_right .order_info_box .auth_user_img {
+  position: relative;
+  width: 120px;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.member_page .my_page .my_page_right .order_info_box .auth_user_img img {
+  width: 117px;
+  height: 112px;
+  flex-shrink: 0;
+  border-radius: 37px;
+  background: lightgray 50% / cover no-repeat;
+
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.member_page
+  .my_page
+  .my_page_right
+  .order_info_box
+  .auth_user_img
+  .auth_user_avatar {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 37px;
+  background: lightgray 50% / cover no-repeat;
+  top: 94px;
+  left: 98px;
+}
+
+.member_page .my_page .my_page_right .order_info_box .auth_user_name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member_page
+  .my_page
+  .my_page_right
+  .order_info_box
+  .auth_user_name
+  span:nth-child(1) {
+  margin-top: 20px;
+  color: #08090d;
+  font-family: Commissioner;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 128.571% */
+}
+
+.member_page
+  .my_page
+  .my_page_right
+  .order_info_box
+  .auth_user_name
+  span:nth-child(2) {
+  color: #a1a1a1;
+  font-family: "Commissioner";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 180% */
+}
+
+.member_page .my_page .my_page_right .order_info_box .auth_follow {
+  position: relative;
+  width: 220px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.member_page .my_page .my_page_right .order_info_box .auth_follow span {
+  color: #616164;
+  font-family: "DM Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.member_page .my_page .my_page_right .order_info_box p {
+  color: #616164;
+  font-family: "DM Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.member_page .my_page .my_page_right .order_info_box button {
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #0288d1;
+  background: #0288d1;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.member_page .my_page .my_page_right .my_page_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  position: relative;
+}
+.member_page .my_page .my_page_right .my_page_menu .menu_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 372.58px;
+  height: 50px;
+  border-radius: 16px;
+  background: #fff;
+  margin-bottom: 10px;
+
+  box-shadow: 0px 4px 16px 0px rgba(242, 189, 87, 0.04) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  text-emphasis: none;
+}
+
+.member_page .my_page .my_page_right .my_page_menu .menu_box span {
+  color: #000;
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 15px;
+}
