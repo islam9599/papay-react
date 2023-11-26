@@ -22,7 +22,8 @@ import Marginer from "../../components/marginer";
 
 import { MemberFollowings } from "./memberFollowings";
 import { MemberPosts } from "./memberPosts";
-import { MySettings } from "./mySettings";
+
+import { TViewer } from "../../components/tui_editor/TViewer";
 
 export function VisitOtherPage(props: any) {
   const [value, setValue] = useState("1");
@@ -81,7 +82,7 @@ export function VisitOtherPage(props: any) {
                   <Box className="menu_name">Tanlangan Maqola</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    {/* <MemberFollowers /> */}
+                    <TViewer text={`<div>Va alaykum assalomu</div>`} />
                   </Box>
                 </TabPanel>
               </Box>

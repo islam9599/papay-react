@@ -24,6 +24,8 @@ import Marginer from "../../components/marginer";
 import { MemberFollowings } from "./memberFollowings";
 import { MemberPosts } from "./memberPosts";
 import { MySettings } from "./mySettings";
+import { TuiEditor } from "../../components/tui_editor";
+import { TViewer } from "../../components/tui_editor/TViewer";
 
 export function VisitMyPage(props: any) {
   const [value, setValue] = useState("1");
@@ -80,15 +82,15 @@ export function VisitMyPage(props: any) {
                 <TabPanel value="4">
                   <Box className="menu_name">Maqola yozish</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
-                  <Box className="menu_content">
-                    {/* <MemberFollowers /> */}
+                  <Box className="menu_content" sx={{ height: "1200px" }}>
+                    <TuiEditor />
                   </Box>
                 </TabPanel>
                 <TabPanel value="5">
                   <Box className="menu_name">Tanlangan Maqola</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    {/* <MemberFollowers /> */}
+                    <TViewer text={`<h1>Assalomu alaykum</h1>`} />
                   </Box>
                 </TabPanel>
                 <TabPanel value="6">
