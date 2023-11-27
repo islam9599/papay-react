@@ -38,7 +38,7 @@ export function VisitMyPage(props: any) {
         // maxWidth="lg"
         style={{ marginTop: "50px", marginBottom: "50px" }}
       >
-        <Stack width={"100"} height={"750px"} flexDirection={"row"}>
+        <Stack width={"100%"} height={"750px"} flexDirection={"row"}>
           <TabContext value={value}>
             <Stack className="my_page_left">
               <Box display={"flex"} flexDirection={"column"}>
@@ -70,6 +70,21 @@ export function VisitMyPage(props: any) {
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
                     <MemberFollowers actions_enabled={true} />
+                    <Pagination
+                      style={{ marginTop: "50px" }}
+                      count={3}
+                      page={1}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          components={{
+                            previous: ArrowBackIcon,
+                            next: ArrowForwardIcon,
+                          }}
+                          {...item}
+                          color="secondary"
+                        />
+                      )}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="3">
@@ -77,6 +92,21 @@ export function VisitMyPage(props: any) {
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
                     <MemberFollowings actions_enabled={true} />
+                    <Pagination
+                      style={{ marginTop: "50px", marginBottom: "50px" }}
+                      count={3}
+                      page={1}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          components={{
+                            previous: ArrowBackIcon,
+                            next: ArrowForwardIcon,
+                          }}
+                          {...item}
+                          color="secondary"
+                        />
+                      )}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="4">

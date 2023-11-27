@@ -68,6 +68,21 @@ export function VisitOtherPage(props: any) {
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
                     <MemberFollowers actions_enabled={false} />
+                    <Pagination
+                      style={{ marginTop: "50px" }}
+                      count={3}
+                      page={1}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          components={{
+                            previous: ArrowBackIcon,
+                            next: ArrowForwardIcon,
+                          }}
+                          {...item}
+                          color="secondary"
+                        />
+                      )}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value="3">
@@ -75,6 +90,21 @@ export function VisitOtherPage(props: any) {
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
                     <MemberFollowings actions_enabled={false} />
+                    <Pagination
+                      style={{ marginTop: "50px" }}
+                      count={3}
+                      page={1}
+                      renderItem={(item) => (
+                        <PaginationItem
+                          components={{
+                            previous: ArrowBackIcon,
+                            next: ArrowForwardIcon,
+                          }}
+                          {...item}
+                          color="secondary"
+                        />
+                      )}
+                    />
                   </Box>
                 </TabPanel>
 
