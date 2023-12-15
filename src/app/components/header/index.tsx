@@ -6,12 +6,17 @@ import {
   IconButton,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export function NavbarHome(props: any) {
   // Initialization
   const [count, setCount] = useState(0);
+  const [value, setValue] = useState(true);
+
+  useEffect(() => {
+    setCount(count + 1);
+  }, [value]);
 
   // Handlers
   // const countHandler = () => {
@@ -108,7 +113,7 @@ export function NavbarHome(props: any) {
                   background: "#1976d2",
                   color: "#fff",
                 }}
-                onClick={() => setCount(count + 1)}
+                onClick={() => setValue(!value)}
               >
                 RO’YHATDAN O’TISH
               </Button>
