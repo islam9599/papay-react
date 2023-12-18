@@ -10,11 +10,10 @@ import { Events } from "./events";
 import { Recommendations } from "./recommendations";
 
 export function HomePage() {
+  // selector: store => data
   useEffect(() => {
-    console.log("componentnDidMount => dataFetch");
-    return () => {
-      console.log("componentnWillUnMount process");
-    };
+    // backend data request =>  data
+    // slice:  data => redux store
   }, []);
   return (
     <div className="homepage">
