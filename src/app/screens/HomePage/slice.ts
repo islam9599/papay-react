@@ -18,7 +18,7 @@ const HomePageSilce = createSlice({
       state.topRestaurants = action.payload;
     },
     setBestRestaurants: (state, action) => {
-      state.bestBoArticles = action.payload;
+      state.bestRestaurants = action.payload;
     },
     setTrendProducts: (state, action) => {
       state.trendProducts = action.payload;
