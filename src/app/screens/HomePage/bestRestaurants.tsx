@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveBestRestaurants } from "./selector";
 import { Restaurant } from "../../../types/user";
-import { serviceApi } from "../../../lib/config";
+import { serverApi } from "../../../lib/config";
 
 /** Redux Selector*/
 const bestRestaurantRetriever = createSelector(
@@ -26,7 +26,6 @@ const bestRestaurantRetriever = createSelector(
     bestRestaurants,
   })
 );
-console.log("bestRestaurantRetriever:::", bestRestaurantRetriever);
 
 export function BestRestaurants() {
   /** Initialization */
@@ -46,9 +45,9 @@ export function BestRestaurants() {
           </Box>
           <Stack flexDirection={"row"}>
             {bestRestaurants.map((ele: Restaurant) => {
-              const image_path = `${serviceApi}/${ele.mb_image}`;
+              const image_path = `${serverApi}/${ele.mb_image}`;
               return (
-                <CssVarsProvider>
+                <CssVarsProvider key={ele._id}>
                   <Card
                     variant="outlined"
                     sx={{

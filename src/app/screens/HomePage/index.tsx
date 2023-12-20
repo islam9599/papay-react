@@ -26,13 +26,10 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 export function HomePage() {
   /** Initialization */
-  // selector: store => data
+
   const { setTopRestaurants, setBestRestaurants } = actionDispatch(
     useDispatch()
   );
-
-  // const { bestRestaurants } = useSelector(bestRestaurantRetriever);
-  // console.log("bestRestaurants::::::", bestRestaurants);
 
   useEffect(() => {
     // backend data request =>  data
