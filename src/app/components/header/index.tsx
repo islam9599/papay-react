@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { sweetTopSuccessAlert } from "../../../lib/sweetAlert";
 
 export function NavbarHome(props: any) {
   // Initialization
@@ -84,6 +85,7 @@ export function NavbarHome(props: any) {
               <Button
                 variant="contained"
                 style={{ color: "#fff", background: "#1976d2" }}
+                onClick={props.handleLoginOpen}
               >
                 KIRISH
               </Button>
@@ -113,7 +115,7 @@ export function NavbarHome(props: any) {
                   background: "#1976d2",
                   color: "#fff",
                 }}
-                onClick={() => setValue(!value)}
+                onClick={props.handleSignupOpen}
               >
                 RO’YHATDAN O’TISH
               </Button>

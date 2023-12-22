@@ -19,18 +19,47 @@ import Car from "./screens/testCar";
 import AuthentificationModal from "./auth";
 
 function App() {
+  /** Initializations */
   const [path, setPath] = useState();
   const main_paith = window.location.pathname;
-  console.log(main_paith);
+  const [signupOpen, setSignupOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  /** Handlers */
+
+  const handleSignupOpen = () => {
+    setSignupOpen(true);
+  };
+  const handleSignupClose = () => {
+    setSignupOpen(false);
+  };
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+  };
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
 
   return (
     <Router>
       {main_paith == "/" ? (
-        <NavbarHome setPath={setPath} />
+        <NavbarHome
+          setPath={setPath}
+          handleSignupOpen={handleSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+        />
       ) : main_paith.includes("/restaurant") ? (
-        <NavbarRestaurant setPath={setPath} />
+        <NavbarRestaurant
+          setPath={setPath}
+          handleSignupOpen={handleSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+        />
       ) : (
-        <NavbarOthers setPath={setPath} />
+        <NavbarOthers
+          setPath={setPath}
+          handleSignupOpen={handleSignupOpen}
+          handleLoginOpen={handleLoginOpen}
+        />
       )}
 
       <Switch>
@@ -57,7 +86,14 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-      <AuthentificationModal />
+      <AuthentificationModal
+        loginOpen={loginOpen}
+        handleLoginOpen={handleLoginOpen}
+        handleLoginClose={handleLoginClose}
+        signupOpen={signupOpen}
+        handleSignupOpen={handleSignupOpen}
+        handleSignupClose={handleSignupClose}
+      />
     </Router>
   );
 }
