@@ -203,7 +203,10 @@ export function BestRestaurants() {
             justifyContent={"flex-end"}
             style={{ width: "100%", marginTop: "16px" }}
           >
-            <Button style={{ background: "#1976D2", color: "#fff" }}>
+            <Button
+              style={{ background: "#1976D2", color: "#fff" }}
+              onClick={goRestaurantHandler}
+            >
               BARCHASINI KO’RISH
             </Button>
           </Stack>
