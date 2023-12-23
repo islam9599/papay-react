@@ -12,12 +12,8 @@ import {
 import { CssVarsProvider } from "@mui/joy";
 import { Favorite } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-// Redux
 
-import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import { retrieveTopRestaurants } from "./selector";
-import { Restaurant } from "../../../types/user";
+// Others
 import { serverApi } from "../../../lib/config";
 import {
   sweetErrorHandling,
@@ -28,6 +24,11 @@ import MemberApiService from "../../apiServices/memberApiService";
 import { MemberLiken } from "../../../types/others";
 import { useHistory } from "react-router-dom";
 
+// Redux
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTopRestaurants } from "./selector";
+import { Restaurant } from "../../../types/user";
 /** Redux Selector*/
 const topRestaurantRetriever = createSelector(
   retrieveTopRestaurants,
