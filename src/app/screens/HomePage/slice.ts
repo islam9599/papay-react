@@ -10,7 +10,7 @@ const initialState: HomePageState = {
   newsBoArticles: [],
 };
 
-const HomePageSilce = createSlice({
+const HomePageSlice = createSlice({
   name: "homePage",
   initialState,
   reducers: {
@@ -42,7 +42,7 @@ export const {
   setBestBoArticles,
   setTrendBoArticles,
   setNewsBoArticles,
-} = HomePageSilce.actions;
+} = HomePageSlice.actions;
 
-const HomePageReducer = HomePageSilce.reducer;
+const HomePageReducer = HomePageSlice.reducer;
 export default HomePageReducer;
