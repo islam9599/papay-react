@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   ArrowBack,
@@ -15,6 +15,7 @@ import { Badge, Box, Button, Container, Stack } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Checkbox from "@mui/material/Checkbox";
 import { useHistory, useParams } from "react-router-dom";
+import assert from "assert";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
@@ -37,6 +38,12 @@ import { ProductSearchObj } from "../../../types/others";
 import RestaurantApiService from "../../apiServices/restaurantApiService";
 import ProductApiService from "../../apiServices/productApiService";
 import { serverApi } from "../../../lib/config";
+import MemberApiService from "../../apiServices/memberApiService";
+import { Definer } from "../../../lib/Definer";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
 
 /** Redux Slice */
 
@@ -86,6 +93,8 @@ export function OneRestaurant() {
       product_collection: "dish",
     });
   const history = useHistory();
+  const refs: any = useRef([]);
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
   useEffect(() => {
     const restaurantService = new RestaurantApiService();
     restaurantService
@@ -102,7 +111,7 @@ export function OneRestaurant() {
         setTargetProducts(data);
       })
       .catch((err) => console.log(err));
-  }, [targetProductSearchObj]);
+  }, [targetProductSearchObj, productRebuild]);
 
   /** Handlers */
   const chosenRestaurantHandler = (id: string) => {
@@ -110,6 +119,38 @@ export function OneRestaurant() {
     targetProductSearchObj.restaurant_mb_id = id;
     setTargetProductSearchObj({ ...targetProductSearchObj });
     history.push(`/restaurant/${id}`);
+  };
+
+  const searchCollectionHandler = (collection: string) => {
+    targetProductSearchObj.page = 1;
+    targetProductSearchObj.product_collection = collection;
+    setTargetProductSearchObj({ ...targetProductSearchObj });
+  };
+
+  const searchOrderHandler = (order: string) => {
+    targetProductSearchObj.page = 1;
+    targetProductSearchObj.order = order;
+    setTargetProductSearchObj({ ...targetProductSearchObj });
+  };
+
+  const targetLikeProduct = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+
+      const memberService = new MemberApiService(),
+        like_result: any = await memberService.memberLikeTarget({
+          like_ref_id: e.target.id,
+          group_type: "product",
+        });
+      assert.ok(like_result, Definer.general_err1);
+
+      setProductRebuild(new Date());
+
+      await sweetTopSmallSuccessAlert("success", 700, false);
+    } catch (err: any) {
+      console.log("err: targetLikeProduct", err);
+      sweetErrorHandling(err).then();
+    }
   };
   return (
     <div className="single_restaurant">
@@ -205,10 +246,12 @@ export function OneRestaurant() {
                 variant="contained"
                 color="secondary"
                 style={{ marginRight: "30px" }}
+                onClick={() => searchOrderHandler("createdAt")}
               >
                 new
               </Button>
               <Button
+                onClick={() => searchOrderHandler("product_price")}
                 variant="contained"
                 color="secondary"
                 style={{ marginRight: "30px" }}
@@ -216,13 +259,18 @@ export function OneRestaurant() {
                 prices
               </Button>
               <Button
+                onClick={() => searchOrderHandler("product_likes")}
                 variant="contained"
                 color="secondary"
                 style={{ marginRight: "30px" }}
               >
                 likes
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => searchOrderHandler("product_views")}
+                variant="contained"
+                color="secondary"
+              >
                 views
               </Button>
             </Box>
@@ -231,6 +279,7 @@ export function OneRestaurant() {
             <Stack className="dish_category_box">
               <div className="dish_category_frame">
                 <Button
+                  onClick={() => searchCollectionHandler("etc")}
                   variant="contained"
                   color="secondary"
                   style={{ marginRight: "30px" }}
@@ -238,6 +287,7 @@ export function OneRestaurant() {
                   boshqa
                 </Button>
                 <Button
+                  onClick={() => searchCollectionHandler("dessert")}
                   variant="contained"
                   color="secondary"
                   style={{ marginRight: "30px" }}
@@ -245,6 +295,7 @@ export function OneRestaurant() {
                   dessert
                 </Button>
                 <Button
+                  onClick={() => searchCollectionHandler("drink")}
                   variant="contained"
                   color="secondary"
                   style={{ marginRight: "30px" }}
@@ -252,6 +303,7 @@ export function OneRestaurant() {
                   ichimlik
                 </Button>
                 <Button
+                  onClick={() => searchCollectionHandler("salad")}
                   variant="contained"
                   color="secondary"
                   style={{ marginRight: "30px" }}
@@ -259,6 +311,7 @@ export function OneRestaurant() {
                   salad
                 </Button>
                 <Button
+                  onClick={() => searchCollectionHandler("dish")}
                   variant="contained"
                   color="secondary"
                   style={{ marginRight: "30px" }}
@@ -296,6 +349,7 @@ export function OneRestaurant() {
                             icon={<FavoriteBorder style={{ color: "white" }} />}
                             id={product._id}
                             checkedIcon={<Favorite style={{ color: "red" }} />}
+                            onClick={targetLikeProduct}
                             checked={
                               product?.me_liked &&
                               product?.me_liked[0]?.my_favorite
