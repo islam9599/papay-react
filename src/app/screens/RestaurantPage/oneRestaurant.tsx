@@ -14,7 +14,7 @@ import {
 import { Badge, Box, Button, Container, Stack } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Checkbox from "@mui/material/Checkbox";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
@@ -71,6 +71,7 @@ export function OneRestaurant() {
   let { restaurant_id } = useParams<{ restaurant_id: string }>();
   const { setChosenRestaurant, setRandomRestaurants, setTargetProducts } =
     actionDispatch(useDispatch());
+
   const { randomRestaurants } = useSelector(randomRestaurantsRetriever);
   const { chosenRestaurant } = useSelector(chosenRestaurantsRetriever);
   const { targetProducts } = useSelector(targetProductsRetriever);
@@ -82,10 +83,17 @@ export function OneRestaurant() {
       limit: 8,
       order: "createAt",
       restaurant_mb_id: restaurant_id,
-      product_collection: "drink",
+      product_collection: "dish",
     });
+  const history = useHistory();
   useEffect(() => {
-    // Todo: retrieve Restaurant data
+    const restaurantService = new RestaurantApiService();
+    restaurantService
+      .getRestaurants({ page: 1, limit: 10, order: "random" })
+      .then((data) => {
+        setRandomRestaurants(data);
+      })
+      .catch((err) => console.log(err));
 
     const productService = new ProductApiService();
     productService
@@ -95,6 +103,14 @@ export function OneRestaurant() {
       })
       .catch((err) => console.log(err));
   }, [targetProductSearchObj]);
+
+  /** Handlers */
+  const chosenRestaurantHandler = (id: string) => {
+    setChosenRestaurantId(id);
+    targetProductSearchObj.restaurant_mb_id = id;
+    setTargetProductSearchObj({ ...targetProductSearchObj });
+    history.push(`/restaurant/${id}`);
+  };
   return (
     <div className="single_restaurant">
       <Container>
@@ -147,9 +163,11 @@ export function OneRestaurant() {
                 prevEl: ".restaurant-next",
               }}
             >
-              {/* {targetProducts.map((ele) => {
+              {randomRestaurants.map((ele: Restaurant) => {
+                const image_path = `${serverApi}/${ele.mb_image}`;
                 return (
                   <SwiperSlide
+                    onClick={() => chosenRestaurantHandler(ele._id)}
                     style={{
                       display: "flex",
                       flexDirection: "column",
@@ -160,13 +178,13 @@ export function OneRestaurant() {
                   >
                     <img
                       style={{ width: "108px", height: "108px" }}
-                      src="/restaurant/burak.jpeg"
+                      src={image_path}
                       alt=""
                     />
-                    <span>Burak</span>
+                    <span>{ele.mb_nick}</span>
                   </SwiperSlide>
                 );
-              })} */}
+              })}
             </Swiper>
             <Box className="next_btn restaurant-next ">
               <ArrowForward style={{ fontSize: 40, color: "white" }} />
