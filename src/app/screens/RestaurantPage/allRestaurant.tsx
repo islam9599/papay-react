@@ -15,13 +15,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Call, Favorite, LocationOnRounded, Search } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-// Redux
-import { useSelector, useDispatch } from "react-redux";
-import { createSelector } from "reselect";
-import { Restaurant } from "../../../types/user";
-import { retrieveTargetRestaurants } from "./selector";
-import { Dispatch } from "@reduxjs/toolkit";
-import { setTargetRestaurants } from "./slice";
 import RestaurantApiService from "../../apiServices/restaurantApiService";
 import { SearchObj } from "../../../types/others";
 import { serverApi } from "../../../lib/config";
@@ -33,9 +26,13 @@ import {
 } from "../../../lib/sweetAlert";
 import { useHistory } from "react-router-dom";
 import assert from "assert";
-
-const order_list = Array.from(Array(8).keys());
-console.log(order_list);
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { createSelector } from "reselect";
+import { Restaurant } from "../../../types/user";
+import { retrieveTargetRestaurants } from "./selector";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setTargetRestaurants } from "./slice";
 
 /** Redux Slice */
 
@@ -111,6 +108,10 @@ export function AllRestaurants() {
       sweetErrorHandling(err).then();
     }
   };
+  const chosenRestaurantHandler = (id: string) => {
+    history.push(`/restaurant/${id}`);
+  };
+
   return (
     <div className="all_restaurant">
       <Container>
@@ -147,6 +148,7 @@ export function AllRestaurants() {
                 const image_path = `${serverApi}/${ele.mb_image}`;
                 return (
                   <Card
+                    onClick={() => chosenRestaurantHandler(ele._id)}
                     variant="outlined"
                     sx={{
                       minHeight: 410,
