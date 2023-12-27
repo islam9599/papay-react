@@ -16,6 +16,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Checkbox from "@mui/material/Checkbox";
 import { useHistory, useParams } from "react-router-dom";
 import assert from "assert";
+import { Product } from "../../../types/product";
+import { ProductSearchObj } from "../../../types/others";
+import RestaurantApiService from "../../apiServices/restaurantApiService";
+import ProductApiService from "../../apiServices/productApiService";
+import { serverApi } from "../../../lib/config";
+import MemberApiService from "../../apiServices/memberApiService";
+import { Definer } from "../../../lib/Definer";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
@@ -33,17 +44,6 @@ import {
   setTargetProducts,
   setTargetRestaurants,
 } from "./slice";
-import { Product } from "../../../types/product";
-import { ProductSearchObj } from "../../../types/others";
-import RestaurantApiService from "../../apiServices/restaurantApiService";
-import ProductApiService from "../../apiServices/productApiService";
-import { serverApi } from "../../../lib/config";
-import MemberApiService from "../../apiServices/memberApiService";
-import { Definer } from "../../../lib/Definer";
-import {
-  sweetErrorHandling,
-  sweetTopSmallSuccessAlert,
-} from "../../../lib/sweetAlert";
 
 /** Redux Slice */
 
@@ -103,7 +103,10 @@ export function OneRestaurant() {
         setRandomRestaurants(data);
       })
       .catch((err) => console.log(err));
-
+    restaurantService
+      .getChosenRestaurant(chosenRestaurantId)
+      .then((data) => setChosenRestaurant(data))
+      .catch((err) => console.log(err));
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObj)
@@ -111,7 +114,7 @@ export function OneRestaurant() {
         setTargetProducts(data);
       })
       .catch((err) => console.log(err));
-  }, [targetProductSearchObj, productRebuild]);
+  }, [chosenRestaurantId, targetProductSearchObj, productRebuild]);
 
   /** Handlers */
   const chosenRestaurantHandler = (id: string) => {
@@ -131,6 +134,10 @@ export function OneRestaurant() {
     targetProductSearchObj.page = 1;
     targetProductSearchObj.order = order;
     setTargetProductSearchObj({ ...targetProductSearchObj });
+  };
+
+  const chosenDishHandler = (id: string) => {
+    history.push(`/restaurant/dish/${id}`);
   };
 
   const targetLikeProduct = async (e: any) => {
@@ -213,6 +220,7 @@ export function OneRestaurant() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
+                      cursor: "pointer",
                     }}
                     className={"restaurants_avatars"}
                     key={ele._id}
@@ -329,7 +337,12 @@ export function OneRestaurant() {
                     ? product.product_volume + "l"
                     : product.product_size + " size";
                 return (
-                  <Box className="dish_box" key={product._id}>
+                  <Box
+                    onClick={() => chosenDishHandler(product?._id)}
+                    className="dish_box"
+                    key={product._id}
+                    sx={{ cursor: "pointer" }}
+                  >
                     <Stack
                       className="dish_img"
                       sx={{
@@ -442,13 +455,14 @@ export function OneRestaurant() {
             // alignItems={"center"}
             // justifyContent={"space-between"}
           >
-            <Box className="about_left">
-              <span>Rayhon.</span>
-              <p>
-                Biz sizlarga xizmat ko’rsatayotganimizdan bag’oyatda xursadmiz.
-                Bizning xaqimizda: O’z faoliyatimizni 1945 - yilda boshlaganmiz
-                vaxokazo vaxokazo vaxokazo...
-              </p>
+            <Box
+              className="about_left"
+              sx={{
+                backgroundImage: `url(${serverApi}/${chosenRestaurant?.mb_image})`,
+              }}
+            >
+              <span>{chosenRestaurant?.mb_nick}</span>
+              <p>{chosenRestaurant?.mb_description}</p>
             </Box>
             {/* <Stack flexDirection={"row"} style={{ marginRight: "21px" }}>
               <Stack flexDirection={"column"}></Stack>

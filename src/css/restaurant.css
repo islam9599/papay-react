@@ -643,7 +643,7 @@ body {
   width: 562.38px;
   height: 480px;
   fill: #c4c4c4;
-  background-image: url(/public/restaurant/merhaba-steakhouse.jpg);
+  /* background-image: url(/public/restaurant/merhaba-steakhouse.jpg); */
   background-size: cover;
   border-radius: 0 30% 0 0;
   display: flex;
