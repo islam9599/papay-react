@@ -1,11 +1,26 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import React, { useState } from "react";
-
 import { TabPanel } from "@mui/lab";
 import Marginer from "../marginer";
+/** Redux */
+import { createSelector } from "reselect";
+import { retrieveProcessOrders } from "../../screens/Orderspage/selector";
+import { useSelector } from "react-redux";
+
+/** Redux Selector*/
+const processOrdersRetriever = createSelector(
+  retrieveProcessOrders,
+  (processOrders) => ({
+    processOrders,
+  })
+);
 
 const pausedOrders = [[1, 2, 3, 4, 5, 6, 7]];
 export function ProceedOrders() {
+  /** Initialization */
+  // const { processOrders } = useSelector(processOrdersRetriever);
+
+  /** Handlers */
   return (
     <div>
       <TabPanel value={"2"}>

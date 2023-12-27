@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../css/order.css";
 import { Box, Container, Stack } from "@mui/material";
 import Tab from "@mui/material/Tab";
@@ -9,9 +9,54 @@ import { ProceedOrders } from "../../components/orders/proceedOrders";
 import { FinishedOrders } from "../../components/orders/finishedOrders";
 import Marginer from "../../components/marginer";
 import LocationOn from "@mui/icons-material/LocationOn";
+import { Order } from "../../../types/order";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { createSelector } from "reselect";
+import {
+  retrieveFinishedOrders,
+  retrievePausedOrders,
+  retrieveProcessOrders,
+} from "./selector";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+
+/** Redux Slice */
+
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
+/** Redux Selector*/
+const pausedOrdersRetriever = createSelector(
+  retrievePausedOrders,
+  (pausedOrders) => ({
+    pausedOrders,
+  })
+);
+const processOrdersRetriever = createSelector(
+  retrieveProcessOrders,
+  (processOrders) => ({
+    processOrders,
+  })
+);
+const finishedOrdersRetriever = createSelector(
+  retrieveFinishedOrders,
+  (finishedOrders) => ({
+    finishedOrders,
+  })
+);
 
 export function OrdersPage() {
+  /** Initialization */
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
+
+  useEffect(() => {}, []);
+
+  /** Handlers */
   const handleChange = (event: any, newValue: string) => {
     setValue(newValue);
   };
