@@ -156,6 +156,10 @@ function App() {
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
           verifiedMemberdata={verifiedMemberdata}
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
         />
       ) : main_paith.includes("/restaurant") ? (
         <NavbarRestaurant
@@ -184,6 +188,10 @@ function App() {
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
           verifiedMemberdata={verifiedMemberdata}
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
         />
       )}
 
