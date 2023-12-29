@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Menu from "@mui/material/Menu";
-import { Cancel, ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 import { Box, Button, Stack } from "@mui/material";
 import { CartItem } from "../../../types/others";
 import { serverApi } from "../../../lib/config";
-
+import Cancel from "@mui/icons-material/Cancel";
 export function Basket(props: any) {
   /** Initialization */
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { cartItems, onAdd } = props;
+  const { cartItems, onAdd, onRemove, onDelete } = props;
   const itemsPrice = cartItems.reduce(
     (a: any, c: CartItem) => a + c.price * c.quantity,
     0
@@ -86,7 +86,7 @@ export function Basket(props: any) {
               return (
                 <Box className="basket_info_box">
                   <div className="cancel_btn">
-                    <Cancel color="primary" />
+                    <Cancel color="primary" onClick={() => onDelete(item)} />
                   </div>
                   <img
                     src={image_path}
@@ -99,7 +99,9 @@ export function Basket(props: any) {
                   </p>
                   <Box sx={{ minWidth: 120 }}>
                     <div className="col-2">
-                      <button className="remove">-</button>
+                      <button className="remove" onClick={() => onRemove(item)}>
+                        -
+                      </button>
                       <button onClick={() => onAdd(item)} className="add">
                         +
                       </button>
