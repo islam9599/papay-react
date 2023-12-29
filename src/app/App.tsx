@@ -26,6 +26,8 @@ import { Definer } from "../lib/Definer";
 import assert from "assert";
 import MemberApiService from "./apiServices/memberApiService";
 import "../app/apiServices/verify";
+import { CartItem } from "../types/others";
+import { Product } from "../types/product";
 
 function App() {
   /** Initializations */
@@ -39,6 +41,10 @@ function App() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const cartJson: any = localStorage.getItem("cart_data");
+  const current_cart: CartItem[] = JSON.parse(cartJson) ?? [];
+  const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
+
   useEffect(() => {
     console.log("==== useEffect: App =====");
     const memberDataJson: any = localStorage.getItem("member_data")
@@ -51,7 +57,7 @@ function App() {
         : "auth/author_default.jpeg";
       setVerifiedMemberData(member_data);
     }
-  }, [signupOpen, loginOpen]);
+  }, [signupOpen, loginOpen, cartItems]);
 
   /** Handlers */
 
@@ -83,6 +89,34 @@ function App() {
       sweetFailureProvider(Definer.general_err1);
     }
   };
+
+  const onAdd = (product: Product) => {
+    const exist = cartItems.find((item: CartItem) => item._id === product._id);
+    if (exist) {
+      const cart_updated = cartItems.map((item: CartItem) =>
+        item._id === product._id
+          ? { ...exist, quantity: exist.quantity + 1 }
+          : item
+      );
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    } else {
+      const new_item: CartItem = {
+        _id: product._id,
+        quantity: 1,
+        name: product.product_name,
+        price: product.product_price,
+        image: product.product_images[0],
+      };
+      const cart_updated = [...cartItems, { ...new_item }];
+      setCartItems(cart_updated);
+      localStorage.setItem("cart_data", JSON.stringify(cart_updated));
+    }
+  };
+  console.log("onAdd:::", onAdd);
+  const onRemove = () => {};
+  const onDelete = () => {};
+  const onDeleteAll = () => {};
   return (
     <Router>
       {main_paith == "/" ? (
@@ -108,6 +142,8 @@ function App() {
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
           verifiedMemberdata={verifiedMemberdata}
+          cartItems={cartItems}
+          onAdd={onAdd}
         />
       ) : (
         <NavbarOthers
@@ -125,7 +161,7 @@ function App() {
 
       <Switch>
         <Route path="/restaurant">
-          <RestaurantPage />
+          <RestaurantPage onAdd={onAdd} />
         </Route>
         <Route path="/community">
           <CommunityPage />

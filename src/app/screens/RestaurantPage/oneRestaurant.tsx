@@ -73,7 +73,7 @@ const targetProductsRetriever = createSelector(
     targetProducts,
   })
 );
-export function OneRestaurant() {
+export function OneRestaurant(props: any) {
   /** Initialization */
   let { restaurant_id } = useParams<{ restaurant_id: string }>();
   const { setChosenRestaurant, setRandomRestaurants, setTargetProducts } =
@@ -351,6 +351,9 @@ export function OneRestaurant() {
                     >
                       <div className="dish_sale">{siz_volume}</div>
                       <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
                         className="like_view_btn"
                         style={{ left: "36px" }}
                       >
@@ -372,10 +375,19 @@ export function OneRestaurant() {
                           />
                         </Badge>
                       </Button>
-                      <Button className="view_btn">
+                      <Button
+                        className="view_btn"
+                        onClick={(e) => {
+                          props.onAdd(product);
+                          e.stopPropagation();
+                        }}
+                      >
                         <ShoppingCart style={{ display: "flex" }} />
                       </Button>
                       <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
                         className="like_view_btn"
                         style={{ right: "36px" }}
                       >
