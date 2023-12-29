@@ -7,12 +7,18 @@ import { Box, Button, Stack } from "@mui/material";
 import { CartItem } from "../../../types/others";
 import { serverApi } from "../../../lib/config";
 import Cancel from "@mui/icons-material/Cancel";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import OrderApiService from "../../apiServices/orderApiService";
+import { useHistory } from "react-router-dom";
 export function Basket(props: any) {
   /** Initialization */
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { cartItems, onAdd, onRemove, onDelete } = props;
+  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   const itemsPrice = cartItems.reduce(
     (a: any, c: CartItem) => a + c.price * c.quantity,
     0
@@ -27,7 +33,21 @@ export function Basket(props: any) {
     setAnchorEl(null);
   };
 
-  const processOrderHandler = () => {};
+  const processOrderHandler = async () => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const order = new OrderApiService();
+      await order.createOrder(cartItems);
+
+      onDeleteAll();
+      handleClose();
+
+      history.push("/orders");
+    } catch (err: any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <Box className="hover-line">
       <IconButton
@@ -38,7 +58,7 @@ export function Basket(props: any) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <Badge badgeContent={1} color="secondary">
+        <Badge badgeContent={cartItems.length} color="secondary">
           <ShoppingCart color="primary" />
         </Badge>
       </IconButton>

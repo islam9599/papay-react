@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import { Basket } from "./basket";
 
 export function NavbarRestaurant(props: any) {
+  /** Initializations */
   return (
     <div className="format_restaurtant home_navbar">
       <Container>
@@ -70,6 +71,7 @@ export function NavbarRestaurant(props: any) {
               onAdd={props.onAdd}
               onRemove={props.onRemove}
               onDelete={props.onDelete}
+              onDeleteAll={props.onDeleteAll}
             />
 
             {!props.verifiedMemberdata ? (
