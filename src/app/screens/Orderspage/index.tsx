@@ -21,6 +21,7 @@ import {
 import { Dispatch } from "@reduxjs/toolkit";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 import OrderApiService from "../../apiServices/orderApiService";
+import { Member } from "../../../types/user";
 
 /** Redux Slice */
 
@@ -54,6 +55,7 @@ export function OrdersPage(props: any) {
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
+  const verifiedMemberdata: Member | null = props.verifiedMemberdata;
 
   useEffect(() => {
     const order = new OrderApiService();
@@ -118,7 +120,7 @@ export function OrdersPage(props: any) {
             >
               <div className="order_user_img">
                 <img
-                  src="/icons/author_default.jpeg"
+                  src={verifiedMemberdata?.mb_image}
                   className="autor_user_avatar"
                   alt=""
                   style={{
@@ -130,8 +132,8 @@ export function OrdersPage(props: any) {
                 <div className="mini_user">
                   <img src="/icons/mini-user.svg" alt="" />
                 </div>
-                <span>Ergashev Islombek</span>
-                Foydalanuvchi
+                <span>{verifiedMemberdata?.mb_nick}</span>
+                {verifiedMemberdata?.mb_type ?? "Foydalanuvchi"}
               </div>
               <Marginer
                 direction="horizontal"
@@ -142,7 +144,7 @@ export function OrdersPage(props: any) {
             </Box>
             <Box className="order_user_location">
               <LocationOn />
-              <p>Toshkent Mirobod Salom Kuyluk</p>
+              <p>{verifiedMemberdata?.mb_address ?? "Manzil kiritilmagan!"}</p>
             </Box>
           </Box>
 
