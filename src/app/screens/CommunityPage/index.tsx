@@ -46,6 +46,7 @@ export function CommunityPage() {
     page: 1,
     limit: 5,
   });
+  const [articleRebiild, setArticleRebuild] = useState<Date>(new Date());
 
   useEffect(() => {
     const communityService = new CommunityApiService();
@@ -53,7 +54,7 @@ export function CommunityPage() {
       .getTargetArticle(searchArticlesObj)
       .then((data) => setTargetboArticles(data))
       .catch((err) => console.log(err));
-  }, [searchArticlesObj]);
+  }, [searchArticlesObj, articleRebiild]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {
@@ -127,16 +128,28 @@ export function CommunityPage() {
                   />
                   <Stack className="main_article">
                     <TabPanel value="1">
-                      <TargetArticles targetBoArticles={targetboArticles} />
+                      <TargetArticles
+                        targetBoArticles={targetboArticles}
+                        setArticleRebuild={setArticleRebuild}
+                      />
                     </TabPanel>
                     <TabPanel value="2">
-                      <TargetArticles targetBoArticles={targetboArticles} />
+                      <TargetArticles
+                        targetBoArticles={targetboArticles}
+                        setArticleRebuild={setArticleRebuild}
+                      />
                     </TabPanel>
                     <TabPanel value="3">
-                      <TargetArticles targetBoArticles={targetboArticles} />
+                      <TargetArticles
+                        targetBoArticles={targetboArticles}
+                        setArticleRebuild={setArticleRebuild}
+                      />
                     </TabPanel>
                     <TabPanel value="4">
-                      <TargetArticles targetBoArticles={targetboArticles} />
+                      <TargetArticles
+                        targetBoArticles={targetboArticles}
+                        setArticleRebuild={setArticleRebuild}
+                      />
                     </TabPanel>
                   </Stack>
                 </Stack>

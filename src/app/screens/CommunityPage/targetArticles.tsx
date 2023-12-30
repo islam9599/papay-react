@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Box, Link, Stack } from "@mui/material";
 import { Favorite, FavoriteBorder, RemoveRedEye } from "@mui/icons-material";
 import CheckBox from "@mui/material/Checkbox";
 import { BoArticle } from "../../../types/boArticle";
 import { serverApi } from "../../../lib/config";
 import moment from "moment";
+import { Definer } from "../../../lib/Definer";
+import assert from "assert";
+import MemberApiService from "../../apiServices/memberApiService";
+import { useHistory } from "react-router-dom";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
 
 export function TargetArticles(props: any) {
+  /** Initialization */
+  const refs: any = useRef([]);
+  const history = useHistory();
+  const setArticleRebuild = props.setArticleRebuild;
+  /** Handlers */
+  const targetLikeHandler = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+
+      const memberService = new MemberApiService(),
+        like_result: any = await memberService.memberLikeTarget({
+          like_ref_id: e.target.id,
+          group_type: "community",
+        });
+      assert.ok(like_result, Definer.general_err1);
+
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setArticleRebuild(new Date());
+    } catch (err: any) {
+      console.log("err: targetLikeHandler", err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <Stack>
       {props.targetBoArticles.map((article: BoArticle) => {
@@ -47,11 +78,16 @@ export function TargetArticles(props: any) {
                 <Stack className="article_date">
                   <p>{moment(article.createdAt).format("YY-MM-DD HH:mm")}</p>
                   <CheckBox
+                    onClick={targetLikeHandler}
                     icon={<FavoriteBorder style={{ color: "white" }} />}
                     id={article?._id}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
                     // onClick={}
-                    checked={false}
+                    checked={
+                      article?.me_liked && article?.me_liked[0]?.my_favorite
+                        ? true
+                        : false
+                    }
                   />
 
                   <p>{article?.art_likes}</p>
