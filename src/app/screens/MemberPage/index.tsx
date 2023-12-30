@@ -6,16 +6,19 @@ import "../../../css/member-page.css";
 import { VisitOtherPage } from "./visitOtherPage";
 import { VisitMyPage } from "./visitMyPage";
 
-export function MemberPage() {
+export function MemberPage(props: any) {
+  /** Initializations */
+  const verifiedMemberdata = props.verifiedMemberdata;
+  /** Handlers */
   let member_page = useRouteMatch();
   return (
     <div className="member_page">
       <Switch>
         <Route path={`${member_page.path}/other`}>
-          <VisitOtherPage />
+          <VisitOtherPage verifiedMemberdata={verifiedMemberdata} />
         </Route>
         <Route path={`${member_page.path}`}>
-          <VisitMyPage />
+          <VisitMyPage verifiedMemberdata={verifiedMemberdata} />
         </Route>
       </Switch>
     </div>
