@@ -1,7 +1,7 @@
 import { Person } from "@mui/icons-material";
 import { Box, Button, Link, Stack } from "@mui/material";
 import React from "react";
-import { Follower, Following } from "../../../types/follow";
+import { Follower } from "../../../types/follow";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
