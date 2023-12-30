@@ -10,6 +10,8 @@ import { FinishedOrders } from "../../components/orders/finishedOrders";
 import Marginer from "../../components/marginer";
 import LocationOn from "@mui/icons-material/LocationOn";
 import { Order } from "../../../types/order";
+import OrderApiService from "../../apiServices/orderApiService";
+import { Member } from "../../../types/user";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
@@ -20,8 +22,6 @@ import {
 } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
-import OrderApiService from "../../apiServices/orderApiService";
-import { Member } from "../../../types/user";
 
 /** Redux Slice */
 

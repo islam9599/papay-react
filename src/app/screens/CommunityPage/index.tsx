@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import "../../../css/community.css";
 import { CommunityChats } from "./communityChats";
@@ -12,17 +12,74 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Marginer from "../../components/marginer";
 import { TargetArticles } from "./targetArticles";
+import CommunityApiService from "../../apiServices/communityApiService";
+import { BoArticle, SearchArticleObj } from "../../../types/boArticle";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTargetboArticles } from "./selector";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setTargetboArticles } from "./slice";
 
-const targetBoArticles = [1, 2, 3, 4, 5];
+/** Redux Slice */
+
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTargetboArticles: (data: BoArticle[]) =>
+    dispatch(setTargetboArticles(data)),
+});
+
+/** Redux Selector*/
+const targetboArticlesRetriever = createSelector(
+  retrieveTargetboArticles,
+  (targetboArticles) => ({
+    targetboArticles,
+  })
+);
 
 export function CommunityPage() {
   /** Initializations */
+  const { setTargetboArticles } = actionDispatch(useDispatch());
+  const { targetboArticles } = useSelector(targetboArticlesRetriever);
   const [value, setValue] = useState("1");
-  const handleChange = (event: any, newValue: string) => {
-    setValue(newValue);
-  };
+  const [searchArticlesObj, setSearchArticleObj] = useState<SearchArticleObj>({
+    bo_id: "all",
+    page: 1,
+    limit: 5,
+  });
+
+  useEffect(() => {
+    const communityService = new CommunityApiService();
+    communityService
+      .getTargetArticle(searchArticlesObj)
+      .then((data) => setTargetboArticles(data))
+      .catch((err) => console.log(err));
+  }, [searchArticlesObj]);
 
   /** Handlers */
+  const handleChange = (event: any, newValue: string) => {
+    searchArticlesObj.page = 1;
+    switch (newValue) {
+      case "1":
+        searchArticlesObj.bo_id = "all";
+        break;
+      case "2":
+        searchArticlesObj.bo_id = "celebrity";
+        break;
+      case "3":
+        searchArticlesObj.bo_id = "evaluation";
+        break;
+      case "4":
+        searchArticlesObj.bo_id = "story";
+        break;
+    }
+    setSearchArticleObj({ ...searchArticlesObj });
+    setValue(newValue);
+  };
+  const handlePaginationChange = (event: any, value: number) => {
+    searchArticlesObj.page = value;
+    setSearchArticleObj({ ...searchArticlesObj });
+  };
+
   return (
     <div className="community_page">
       <div
@@ -70,18 +127,16 @@ export function CommunityPage() {
                   />
                   <Stack className="main_article">
                     <TabPanel value="1">
-                      <TargetArticles
-                        targetBoArticles={[1, 2, 3, 4, 5, 6, 7]}
-                      />
+                      <TargetArticles targetBoArticles={targetboArticles} />
                     </TabPanel>
                     <TabPanel value="2">
-                      <TargetArticles targetBoArticles={[1, 2, 3]} />
+                      <TargetArticles targetBoArticles={targetboArticles} />
                     </TabPanel>
                     <TabPanel value="3">
-                      <TargetArticles targetBoArticles={[1, 2]} />
+                      <TargetArticles targetBoArticles={targetboArticles} />
                     </TabPanel>
                     <TabPanel value="4">
-                      <TargetArticles targetBoArticles={[1, 2]} />
+                      <TargetArticles targetBoArticles={targetboArticles} />
                     </TabPanel>
                   </Stack>
                 </Stack>
@@ -92,8 +147,12 @@ export function CommunityPage() {
                 />
                 <Stack className="aricle_pagination" spacing={4}>
                   <Pagination
-                    count={3}
-                    page={1}
+                    count={
+                      searchArticlesObj.page >= 3
+                        ? searchArticlesObj.page + 1
+                        : 3
+                    }
+                    page={searchArticlesObj.page}
                     renderItem={(item) => (
                       <PaginationItem
                         components={{
@@ -104,6 +163,7 @@ export function CommunityPage() {
                         color="secondary"
                       />
                     )}
+                    onChange={handlePaginationChange}
                   />
                 </Stack>
               </TabContext>
