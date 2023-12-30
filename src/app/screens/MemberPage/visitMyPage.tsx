@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Stack, Box, Button } from "@mui/material";
 import {
   Facebook,
@@ -27,7 +27,7 @@ import { MySettings } from "./mySettings";
 import { TuiEditor } from "../../components/tui_editor";
 import { TViewer } from "../../components/tui_editor/TViewer";
 import { Member } from "../../../types/user";
-import { BoArticle } from "../../../types/boArticle";
+import { BoArticle, SearchMemberArticleObj } from "../../../types/boArticle";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -43,6 +43,12 @@ import {
   setChosenMemberBoArticles,
   setChosenSingleBoArticle,
 } from "./slice";
+import {
+  sweetErrorHandling,
+  sweetFailureProvider,
+} from "../../../lib/sweetAlert";
+import CommunityApiService from "../../apiServices/communityApiService";
+import MemberApiService from "../../apiServices/memberApiService";
 
 /** Redux Slice */
 
@@ -78,6 +84,9 @@ const chosenSingleBoArticleRetriever = createSelector(
 
 export function VisitMyPage(props: any) {
   /** Initializations */
+  const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
+
+  const { verifiedMemberdata } = props;
   const {
     setChosenMember,
     setChosenMemberBoArticles,
@@ -89,10 +98,47 @@ export function VisitMyPage(props: any) {
   );
   const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
   const [value, setValue] = useState("1");
+  const [memberAticleSearchObj, setMemberAticleSearchObj] =
+    useState<SearchMemberArticleObj>({ page: 1, limit: 3, mb_id: "none" });
+
+  useEffect(() => {
+    if (!localStorage.getItem("member_data")) {
+      sweetFailureProvider("Please login first!!!", true, true);
+    }
+
+    const communityService = new CommunityApiService();
+    communityService
+      .getMemberCommunityArticle(memberAticleSearchObj)
+      .then((data) => setChosenMemberBoArticles(data))
+      .catch((err) => console.log(err));
+
+    const memberService = new MemberApiService();
+    memberService
+      .getChosenMember(verifiedMemberdata?._id)
+      .then((data) => setChosenMember(data))
+      .catch((err) => console.log(err));
+  }, [memberAticleSearchObj, articleRebuild]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {
     setValue(newValue);
+  };
+  const handlePaginationChange = (event: any, value: number) => {
+    memberAticleSearchObj.page = value;
+    setMemberAticleSearchObj({ ...memberAticleSearchObj });
+  };
+
+  const renderChosenArticlesHandeler = async (art_id: string) => {
+    try {
+      const communityService = new CommunityApiService();
+      communityService
+        .getChosenArticle(art_id)
+        .then((data) => setChosenSingleBoArticle(data))
+        .catch((err) => console.log(err));
+    } catch (err: any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
   };
   return (
     <div className="my_page">
@@ -109,11 +155,20 @@ export function VisitMyPage(props: any) {
                   <Marginer width="750px" bg="#fff" height="1" />
 
                   <Box className="menu_content">
-                    <MemberPosts />
+                    <MemberPosts
+                      chosenMemberBoArticles={chosenMemberBoArticles}
+                      renderChosenArticlesHandeler={
+                        renderChosenArticlesHandeler
+                      }
+                      setArticleRebuild={setArticleRebuild}
+                    />
                     <Pagination
-                      style={{ marginTop: "50px" }}
-                      count={3}
-                      page={1}
+                      count={
+                        memberAticleSearchObj.page >= 3
+                          ? memberAticleSearchObj.page + 1
+                          : 3
+                      }
+                      page={memberAticleSearchObj.page}
                       renderItem={(item) => (
                         <PaginationItem
                           components={{
@@ -122,8 +177,10 @@ export function VisitMyPage(props: any) {
                           }}
                           {...item}
                           color="secondary"
+                          sx={{ mt: 5 }}
                         />
                       )}
+                      onChange={handlePaginationChange}
                     />
                   </Box>
                 </TabPanel>
@@ -133,9 +190,12 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_content">
                     <MemberFollowers actions_enabled={true} />
                     <Pagination
-                      style={{ marginTop: "50px" }}
-                      count={3}
-                      page={1}
+                      count={
+                        memberAticleSearchObj.page >= 3
+                          ? memberAticleSearchObj.page + 1
+                          : 3
+                      }
+                      page={memberAticleSearchObj.page}
                       renderItem={(item) => (
                         <PaginationItem
                           components={{
@@ -155,9 +215,12 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_content">
                     <MemberFollowings actions_enabled={true} />
                     <Pagination
-                      style={{ marginTop: "50px", marginBottom: "50px" }}
-                      count={3}
-                      page={1}
+                      count={
+                        memberAticleSearchObj.page >= 3
+                          ? memberAticleSearchObj.page + 1
+                          : 3
+                      }
+                      page={memberAticleSearchObj.page}
                       renderItem={(item) => (
                         <PaginationItem
                           components={{

@@ -35,6 +35,7 @@ export function MemberFollowings(props: any) {
   /** Initializations */
   const { setMemberFollowings } = actionDispatch(useDispatch());
   const { memberFollowings } = useSelector(memberFollowingsRetriever);
+  //setMemberFollowings
 
   /** Handlers */
   return (

@@ -36,7 +36,10 @@ export function MemberFollowers(props: any) {
   const { setMemberFollowers } = actionDispatch(useDispatch());
   const { memberFollowers } = useSelector(memberFollowersRetriever);
 
+  // setMemberFollowers
+
   /** Handlers */
+  const subscribeHandler = () => {};
   return (
     <div className="member_followers">
       {followers.map((follower) => {
