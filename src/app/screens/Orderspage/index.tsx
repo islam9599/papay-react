@@ -20,6 +20,7 @@ import {
 } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import OrderApiService from "../../apiServices/orderApiService";
 
 /** Redux Slice */
 
@@ -48,13 +49,30 @@ const finishedOrdersRetriever = createSelector(
   })
 );
 
-export function OrdersPage() {
+export function OrdersPage(props: any) {
   /** Initialization */
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const order = new OrderApiService();
+    // paused orders
+    order
+      .getMyOrders("paused")
+      .then((data) => setPausedOrders(data))
+      .catch((err) => console.log(err));
+    // process orders
+    order
+      .getMyOrders("process")
+      .then((data) => setProcessOrders(data))
+      .catch((err) => console.log(err));
+    // finished orders
+    order
+      .getMyOrders("finished")
+      .then((data) => setFinishedOrders(data))
+      .catch((err) => console.log(err));
+  }, [props.orderRebuild]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {
@@ -84,9 +102,9 @@ export function OrdersPage() {
               </Box>
             </Box>
             <Stack className="order_main_content">
-              <PausedOrders />
-              <ProceedOrders />
-              <FinishedOrders />
+              <PausedOrders setOrderRebuild={props.setOrderRebuild} />
+              <ProceedOrders setOrderRebuild={props.setOrderRebuild} />
+              <FinishedOrders setOrderRebuild={props.setOrderRebuild} />
             </Stack>
           </TabContext>
         </Stack>

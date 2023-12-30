@@ -5,6 +5,8 @@ import { TabPanel } from "@mui/lab";
 import { createSelector } from "reselect";
 import { retrieveFinishedOrders } from "../../screens/Orderspage/selector";
 import { useSelector } from "react-redux";
+import { serverApi } from "../../../lib/config";
+import { Product } from "../../../types/product";
 
 /** Redux Selector*/
 const finishedOrdersRetriever = createSelector(
@@ -14,23 +16,25 @@ const finishedOrdersRetriever = createSelector(
   })
 );
 
-const pausedOrders = [[1, 2, 3]];
-export function FinishedOrders() {
+export function FinishedOrders(props: any) {
   /** Initialization */
-  // const { finishedOrders } = useSelector(finishedOrdersRetriever);
+  const { finishedOrders } = useSelector(finishedOrdersRetriever);
 
   /** Handlers */
   return (
     <div>
       <TabPanel value={"3"}>
-        {pausedOrders?.map((order) => {
-          const img_path = `/restaurant/boyin-food.jpeg`;
+        {finishedOrders?.map((order) => {
           return (
-            <Box className="order_main_box">
+            <Box key={order._id} className="order_main_box">
               <Box className="order_box_scroll">
-                {order.map((item) => {
+                {order.order_items.map((item) => {
+                  const product: Product = order.product_data.filter(
+                    (ele) => ele._id === item.product_id
+                  )[0];
+                  const img_path = `${serverApi}/${product?.product_images[0]}`;
                   return (
-                    <Box className="order_name_price">
+                    <Box key={item._id} className="order_name_price">
                       <img
                         src={img_path}
                         style={{
@@ -42,13 +46,15 @@ export function FinishedOrders() {
                         }}
                         alt=""
                       />
-                      <p className="title_dish">Boyin Burger</p>
+                      <p className="title_dish">{product.product_name}</p>
                       <Box className="price_box">
-                        <p>$10</p>
+                        <p>${item.item_price}</p>
                         <img src="/icons/close.svg" alt="" />
-                        <p>2</p>
+                        <p>{item.item_quantity}</p>
                         <img src="/icons/equal.svg" alt="" />
-                        <p style={{ marginLeft: "15px" }}>$20</p>
+                        <p style={{ marginLeft: "15px" }}>
+                          ${item.item_price * item.item_quantity}
+                        </p>
                       </Box>
                     </Box>
                   );
@@ -61,13 +67,13 @@ export function FinishedOrders() {
               >
                 <Box className="box_total">
                   <p>Mahsulot narxi</p>
-                  <p>$60</p>
+                  <p>${order.order_total_amount - order.order_delivery_cost}</p>
                   <img src="/icons/plus.svg" alt="" />
                   <p>yetkazish xizmati</p>
-                  <p>$15</p>
+                  <p>${order.order_delivery_cost}</p>
                   <p>Jami narx</p>
                   <img src="/icons/equal.svg" alt="" />
-                  <p>$75</p>
+                  <p>${order.order_total_amount}</p>
                 </Box>
               </Stack>
             </Box>
