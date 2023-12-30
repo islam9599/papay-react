@@ -16,10 +16,13 @@ import { TargetArticles } from "./targetArticles";
 const targetBoArticles = [1, 2, 3, 4, 5];
 
 export function CommunityPage() {
+  /** Initializations */
   const [value, setValue] = useState("1");
   const handleChange = (event: any, newValue: string) => {
     setValue(newValue);
   };
+
+  /** Handlers */
   return (
     <div className="community_page">
       <div

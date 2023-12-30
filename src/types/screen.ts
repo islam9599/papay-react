@@ -8,6 +8,7 @@ export interface AppRootState {
   homePage: HomePageState;
   restaurantPage: RestaurantPageState;
   ordersPage: OrdersPageState;
+  communityPage: CommunityPageState;
 }
 
 /** Homepage */
@@ -34,4 +35,8 @@ export interface OrdersPageState {
   pausedOrders: Order[];
   processOrders: Order[];
   finishedOrders: Order[];
+}
+/** Community */
+export interface CommunityPageState {
+  targetboArticles: BoArticle[];
 }
