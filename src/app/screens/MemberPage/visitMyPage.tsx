@@ -133,7 +133,10 @@ export function VisitMyPage(props: any) {
       const communityService = new CommunityApiService();
       communityService
         .getChosenArticle(art_id)
-        .then((data) => setChosenSingleBoArticle(data))
+        .then((data) => {
+          setChosenSingleBoArticle(data);
+          setValue("5");
+        })
         .catch((err) => console.log(err));
     } catch (err: any) {
       console.log(err);
@@ -245,7 +248,7 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Tanlangan Maqola</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    <TViewer text={`<h1>Assalomu alaykum</h1>`} />
+                    <TViewer chosenSingleBoArticle={chosenSingleBoArticle} />
                   </Box>
                 </TabPanel>
                 <TabPanel value="6">

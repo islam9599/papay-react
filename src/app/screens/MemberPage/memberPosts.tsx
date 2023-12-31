@@ -14,7 +14,7 @@ import {
 
 export function MemberPosts(props: any) {
   /** Initialization */
-  const setArticleRebuild = props.setArticleRebuild;
+  const { setArticleRebuild, renderChosenArticlesHandeler } = props;
   const { chosenMemberBoArticles } = props;
   /** Handlers */
   const targetLikeHandler = async (e: any) => {
@@ -49,7 +49,10 @@ export function MemberPosts(props: any) {
           ? `${serverApi}/${article?.art_image}`
           : "/icons/author_default.jpeg";
         return (
-          <Stack className="my_article_wrapper">
+          <Stack
+            className="my_article_wrapper"
+            onClick={() => renderChosenArticlesHandeler(article?._id)}
+          >
             <Link className="target_articles_container">
               <Stack flexDirection={"row"}>
                 <Box>
