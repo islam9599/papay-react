@@ -28,6 +28,13 @@ import { TuiEditor } from "../../components/tui_editor";
 import { TViewer } from "../../components/tui_editor/TViewer";
 import { Member } from "../../../types/user";
 import { BoArticle, SearchMemberArticleObj } from "../../../types/boArticle";
+import {
+  sweetErrorHandling,
+  sweetFailureProvider,
+} from "../../../lib/sweetAlert";
+import CommunityApiService from "../../apiServices/communityApiService";
+import MemberApiService from "../../apiServices/memberApiService";
+import { serverApi } from "../../../lib/config";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -43,12 +50,6 @@ import {
   setChosenMemberBoArticles,
   setChosenSingleBoArticle,
 } from "./slice";
-import {
-  sweetErrorHandling,
-  sweetFailureProvider,
-} from "../../../lib/sweetAlert";
-import CommunityApiService from "../../apiServices/communityApiService";
-import MemberApiService from "../../apiServices/memberApiService";
 
 /** Redux Slice */
 
@@ -85,7 +86,6 @@ const chosenSingleBoArticleRetriever = createSelector(
 export function VisitMyPage(props: any) {
   /** Initializations */
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
-
   const { verifiedMemberdata } = props;
   const {
     setChosenMember,
@@ -98,8 +98,15 @@ export function VisitMyPage(props: any) {
   );
   const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
   const [value, setValue] = useState("1");
+
   const [memberAticleSearchObj, setMemberAticleSearchObj] =
-    useState<SearchMemberArticleObj>({ page: 1, limit: 3, mb_id: "none" });
+    useState<SearchMemberArticleObj>({
+      page: 1,
+      limit: 3,
+      mb_id: "none" || verifiedMemberdata?.mb_id,
+    });
+
+  const [followRebuild, setFollowRebuild] = useState<boolean>(false);
 
   useEffect(() => {
     if (!localStorage.getItem("member_data")) {
@@ -117,7 +124,7 @@ export function VisitMyPage(props: any) {
       .getChosenMember(verifiedMemberdata?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
-  }, [memberAticleSearchObj, articleRebuild]);
+  }, [memberAticleSearchObj, articleRebuild, followRebuild]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {
@@ -191,24 +198,11 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Followers</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    <MemberFollowers actions_enabled={true} />
-                    <Pagination
-                      count={
-                        memberAticleSearchObj.page >= 3
-                          ? memberAticleSearchObj.page + 1
-                          : 3
-                      }
-                      page={memberAticleSearchObj.page}
-                      renderItem={(item) => (
-                        <PaginationItem
-                          components={{
-                            previous: ArrowBackIcon,
-                            next: ArrowForwardIcon,
-                          }}
-                          {...item}
-                          color="secondary"
-                        />
-                      )}
+                    <MemberFollowers
+                      actions_enabled={true}
+                      mb_id={verifiedMemberdata?._id}
+                      setFollowRebuild={setFollowRebuild}
+                      followRebuild={followRebuild}
                     />
                   </Box>
                 </TabPanel>
@@ -216,24 +210,11 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Followings</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    <MemberFollowings actions_enabled={true} />
-                    <Pagination
-                      count={
-                        memberAticleSearchObj.page >= 3
-                          ? memberAticleSearchObj.page + 1
-                          : 3
-                      }
-                      page={memberAticleSearchObj.page}
-                      renderItem={(item) => (
-                        <PaginationItem
-                          components={{
-                            previous: ArrowBackIcon,
-                            next: ArrowForwardIcon,
-                          }}
-                          {...item}
-                          color="secondary"
-                        />
-                      )}
+                    <MemberFollowings
+                      actions_enabled={true}
+                      mb_id={verifiedMemberdata?._id}
+                      setFollowRebuild={setFollowRebuild}
+                      followRebuild={followRebuild}
                     />
                   </Box>
                 </TabPanel>
@@ -267,19 +248,30 @@ export function VisitMyPage(props: any) {
                 </a>
                 <Box className="auth_user_img">
                   <div>
-                    <img src="/icons/author_default.jpeg" alt="" />
+                    <img
+                      src={
+                        chosenMember?.mb_image
+                          ? `${serverApi}/${chosenMember?.mb_image}`
+                          : "/auth/author_default.jpeg"
+                      }
+                      alt=""
+                    />
                   </div>
                   <div>
                     <img
                       className="auth_user_avatar"
-                      src="/icons/author_default.jpeg"
-                      alt=""
+                      src={
+                        chosenMember?.mb_type === "RESTAURANT"
+                          ? "/icons/restaurant_type.webp"
+                          : "/icons/author_default.jpeg"
+                      }
+                      alt="mb_type"
                     />
                   </div>
                 </Box>
                 <Box className="auth_user_name">
-                  <span>Ergashev Islombek</span>
-                  <span>Foydalanuvchi</span>
+                  <span>{chosenMember?.mb_nick}</span>
+                  <span>{chosenMember?.mb_type ?? "Foydalanuvchi"}</span>
                 </Box>
                 <Stack
                   flexDirection={"row"}
@@ -288,16 +280,20 @@ export function VisitMyPage(props: any) {
                   justifyContent={"space-between"}
                   marginTop={"10px"}
                 >
-                  <Facebook />
-                  <Instagram />
-                  <YouTube />
-                  <Telegram />
+                  <Facebook sx={{ color: "blue" }} />
+                  <Instagram sx={{ color: "red" }} />
+                  <YouTube sx={{ color: "red" }} />
+                  <Telegram sx={{ color: "blue" }} />
                 </Stack>
                 <Box className="auth_follow">
-                  <span>Followers: 2</span>
-                  <span>Following: 3</span>
+                  <span>Followers: {chosenMember?.mb_subscriber_cnt}</span>
+                  <span>Followings: {chosenMember?.mb_follow_cnt}</span>
                 </Box>
-                <p>Assalomu Alaykum!</p>
+                <p>
+                  {chosenMember?.mb_description
+                    ? chosenMember.mb_description
+                    : "Qoshimcha ma'lumot kiritilmagan!"}
+                </p>
                 <Box
                   display={"flex"}
                   justifyContent={"flex-end"}

@@ -39,9 +39,10 @@ export function MemberPosts(props: any) {
   return (
     <Stack
       style={{
-        overflow: "scroll",
+        overflowY: "scroll",
         width: "100%",
-        height: "400px",
+        height: "700px",
+        marginTop: "20px",
       }}
     >
       {chosenMemberBoArticles.map((article: BoArticle) => {
