@@ -478,7 +478,7 @@
 .member_page .my_page .my_page_right .order_info_box {
   position: relative;
   width: 372.58px;
-  height: auto;
+  height: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -611,6 +611,8 @@
 }
 
 .member_page .my_page .my_page_right .my_page_menu {
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -620,13 +622,15 @@
 }
 .member_page .my_page .my_page_right .my_page_menu .menu_box {
   display: flex;
+  padding: 0 20px;
   align-items: center;
   justify-content: center;
-  width: 372.58px;
+  flex-direction: row;
+  width: 98%;
   height: 50px;
-  border-radius: 16px;
+  border-radius: 10px;
   background: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   box-shadow: 0px 4px 16px 0px rgba(242, 189, 87, 0.04) inset,
     0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,

@@ -209,26 +209,8 @@ export function VisitOtherPage(props: any) {
                       renderChosenArticlesHandeler={
                         renderChosenArticlesHandeler
                       }
-                    />
-                    <Pagination
-                      count={
-                        memberAticleSearchObj.page >= 3
-                          ? memberAticleSearchObj.page + 1
-                          : 3
-                      }
-                      page={memberAticleSearchObj.page}
-                      renderItem={(item) => (
-                        <PaginationItem
-                          components={{
-                            previous: ArrowBackIcon,
-                            next: ArrowForwardIcon,
-                          }}
-                          {...item}
-                          color="secondary"
-                          sx={{ mt: 5 }}
-                        />
-                      )}
-                      onChange={handlePaginationChange}
+                      memberAticleSearchObj={memberAticleSearchObj}
+                      setMemberAticleSearchObj={setMemberAticleSearchObj}
                     />
                   </Box>
                 </TabPanel>
@@ -361,8 +343,11 @@ export function VisitOtherPage(props: any) {
 
               <Stack className="my_page_menu">
                 <TabList
+                  orientation="vertical"
+                  variant="scrollable"
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
+                  aria-label="Vertical tabs example"
+                  sx={{ borderRight: 2, borderColor: "divider", width: "98%" }}
                 >
                   <Tab
                     style={{ flexDirection: "column" }}
@@ -382,14 +367,9 @@ export function VisitOtherPage(props: any) {
                       );
                     }}
                   />
-                </TabList>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
                   <Tab
                     style={{ flexDirection: "column" }}
-                    value={"1"}
+                    value={"2"}
                     component={(e) => {
                       return (
                         <div
@@ -402,14 +382,9 @@ export function VisitOtherPage(props: any) {
                       );
                     }}
                   />
-                </TabList>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
                   <Tab
                     style={{ flexDirection: "column" }}
-                    value={"1"}
+                    value={"3"}
                     component={(e) => {
                       return (
                         <div

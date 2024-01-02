@@ -11,11 +11,21 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export function MemberPosts(props: any) {
   /** Initialization */
-  const { setArticleRebuild, renderChosenArticlesHandeler } = props;
-  const { chosenMemberBoArticles } = props;
+  const {
+    setArticleRebuild,
+    renderChosenArticlesHandeler,
+    memberAticleSearchObj,
+    chosenMemberBoArticles,
+    setMemberAticleSearchObj,
+  } = props;
+
   /** Handlers */
   const targetLikeHandler = async (e: any) => {
     try {
@@ -35,6 +45,10 @@ export function MemberPosts(props: any) {
       console.log("err: targetLikeHandler", err);
       sweetErrorHandling(err).then();
     }
+  };
+  const handlePaginationChange = (event: any, value: number) => {
+    memberAticleSearchObj.page = value;
+    setMemberAticleSearchObj({ ...memberAticleSearchObj });
   };
   return (
     <Stack
@@ -108,6 +122,26 @@ export function MemberPosts(props: any) {
           </Stack>
         );
       })}
+      <Stack alignItems={"center"} justifyContent={"center"}>
+        <Pagination
+          count={
+            memberAticleSearchObj.page >= 3 ? memberAticleSearchObj.page + 1 : 3
+          }
+          page={memberAticleSearchObj.page}
+          renderItem={(item) => (
+            <PaginationItem
+              components={{
+                previous: ArrowBackIcon,
+                next: ArrowForwardIcon,
+              }}
+              {...item}
+              color="secondary"
+              sx={{ mt: 5 }}
+            />
+          )}
+          onChange={handlePaginationChange}
+        />
+      </Stack>
     </Stack>
   );
 }

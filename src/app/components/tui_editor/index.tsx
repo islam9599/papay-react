@@ -72,6 +72,7 @@ export function TuiEditor(props: any) {
       {/*@ts-ignore */}
       <Editor
         ref={editorRef}
+        initialValue="Type here"
         placeholder="Type here"
         previewStyle="vertical"
         height="440px"

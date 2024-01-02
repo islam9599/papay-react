@@ -156,7 +156,7 @@ export function VisitMyPage(props: any) {
         // maxWidth="lg"
         style={{ marginTop: "50px", marginBottom: "50px" }}
       >
-        <Stack width={"100%"} height={"750px"} flexDirection={"row"}>
+        <Stack width={"100%"} height={"800px"} flexDirection={"row"}>
           <TabContext value={value}>
             <Stack className="my_page_left">
               <Box display={"flex"} flexDirection={"column"}>
@@ -171,26 +171,8 @@ export function VisitMyPage(props: any) {
                         renderChosenArticlesHandeler
                       }
                       setArticleRebuild={setArticleRebuild}
-                    />
-                    <Pagination
-                      count={
-                        memberAticleSearchObj.page >= 3
-                          ? memberAticleSearchObj.page + 1
-                          : 3
-                      }
-                      page={memberAticleSearchObj.page}
-                      renderItem={(item) => (
-                        <PaginationItem
-                          components={{
-                            previous: ArrowBackIcon,
-                            next: ArrowForwardIcon,
-                          }}
-                          {...item}
-                          color="secondary"
-                          sx={{ mt: 5 }}
-                        />
-                      )}
-                      onChange={handlePaginationChange}
+                      memberAticleSearchObj={memberAticleSearchObj}
+                      setMemberAticleSearchObj={setMemberAticleSearchObj}
                     />
                   </Box>
                 </TabPanel>
@@ -281,7 +263,7 @@ export function VisitMyPage(props: any) {
                   marginTop={"10px"}
                 >
                   <Facebook sx={{ color: "blue" }} />
-                  <Instagram sx={{ color: "red" }} />
+                  <Instagram href="" sx={{ color: "red" }} />
                   <YouTube sx={{ color: "red" }} />
                   <Telegram sx={{ color: "blue" }} />
                 </Stack>
@@ -301,9 +283,13 @@ export function VisitMyPage(props: any) {
                 >
                   <TabList
                     onChange={handleChange}
-                    aria-label="lab API tabs example"
+                    aria-label="aria-lab tabs example"
                   >
-                    <Button onClick={() => setValue("4")} variant="contained">
+                    <Button
+                      value={"4"}
+                      onClick={() => setValue("4")}
+                      variant="contained"
+                    >
                       MAQOLA YOZISH
                     </Button>
                   </TabList>
@@ -312,11 +298,14 @@ export function VisitMyPage(props: any) {
 
               <Stack className="my_page_menu">
                 <TabList
+                  orientation="vertical"
+                  variant="scrollable"
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
+                  aria-label="Vertical tabs example"
+                  sx={{ borderRight: 2, borderColor: "divider", width: "98%" }}
                 >
                   <Tab
-                    style={{ flexDirection: "column" }}
+                    sx={{ flexDirection: "column" }}
                     value={"1"}
                     TabIndicatorProps={{
                       style: { transition: "none" },
@@ -333,14 +322,9 @@ export function VisitMyPage(props: any) {
                       );
                     }}
                   />
-                </TabList>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
                   <Tab
-                    style={{ flexDirection: "column" }}
-                    value={"1"}
+                    sx={{ flexDirection: "column" }}
+                    value={"2"}
                     component={(e) => {
                       return (
                         <div
@@ -353,14 +337,9 @@ export function VisitMyPage(props: any) {
                       );
                     }}
                   />
-                </TabList>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
                   <Tab
-                    style={{ flexDirection: "column" }}
-                    value={"1"}
+                    sx={{ flexDirection: "column" }}
+                    value={"3"}
                     component={(e) => {
                       return (
                         <div
