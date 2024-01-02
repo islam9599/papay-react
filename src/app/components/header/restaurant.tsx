@@ -88,8 +88,8 @@ export function NavbarRestaurant(props: any) {
             ) : (
               <img
                 style={{ width: "48px", height: "48px", borderRadius: "24px" }}
-                src={props.verifiedMemberdata.mb_image}
-                alt="member_img"
+                src="/auth/author_default.jpeg"
+                // alt="member_img"
                 onClick={props.handleLogoutClick}
               />
             )}
