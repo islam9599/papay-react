@@ -20,6 +20,7 @@ import { createSelector } from "reselect";
 import { retrieveMemberFollowings } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setMemberFollowings } from "./slice";
+import { useHistory } from "react-router-dom";
 
 /** Redux Slice */
 
@@ -45,6 +46,8 @@ export function MemberFollowings(props: any) {
   const [followingSearchObj, setFollowingSearchObj] = useState<FollowSearchObj>(
     { page: 1, limit: 5, mb_id: mb_id }
   );
+  const history = useHistory();
+
   useEffect(() => {
     const followService = new FollowApiService();
     followService
@@ -72,6 +75,10 @@ export function MemberFollowings(props: any) {
       sweetErrorHandling(err).then();
     }
   };
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
   return (
     <div className="member_followers">
       {memberFollowings.map((following: Following) => {
@@ -82,20 +89,28 @@ export function MemberFollowings(props: any) {
           <Link
             style={{
               textDecoration: "none",
-              cursor: "pointer",
               overflowY: "scroll",
             }}
           >
             <Stack className="member_followers_container">
               <Stack className="member_follower_info">
                 <Box className="follower_img">
-                  <img src={img_path} alt="" />
+                  <img
+                    src={img_path}
+                    alt=""
+                    onClick={() => visitMemberHandler(following?.follow_id)}
+                  />
                 </Box>
                 <Stack className="member_follower_name">
                   <span>
                     {following?.follow_member_data?.mb_type ?? "USER"}
                   </span>
-                  <p>{following?.follow_member_data?.mb_nick}</p>
+                  <p
+                    style={{ cursor: "pointer" }}
+                    onClick={() => visitMemberHandler(following?.follow_id)}
+                  >
+                    {following?.follow_member_data?.mb_nick}
+                  </p>
                 </Stack>
               </Stack>
 

@@ -20,6 +20,7 @@ import { createSelector } from "reselect";
 import { retrieveMemberFollowers } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setMemberFollowers } from "./slice";
+import { useHistory } from "react-router-dom";
 
 /** Redux Slice */
 
@@ -43,6 +44,7 @@ export function MemberFollowers(props: any) {
   const [followersSearchObj, setFollowersSearchObj] = useState<FollowSearchObj>(
     { page: 1, limit: 5, mb_id: mb_id }
   );
+  const history = useHistory();
 
   useEffect(() => {
     const followService = new FollowApiService();
@@ -71,6 +73,11 @@ export function MemberFollowers(props: any) {
       sweetErrorHandling(err).then();
     }
   };
+
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
   return (
     <div className="member_followers">
       {memberFollowers.map((follower: Follower) => {
@@ -81,7 +88,7 @@ export function MemberFollowers(props: any) {
           <Link
             style={{
               textDecoration: "none",
-              cursor: "pointer",
+
               overflowY: "scroll",
             }}
             key={follower._id}
@@ -89,13 +96,23 @@ export function MemberFollowers(props: any) {
             <Stack className="member_followers_container">
               <Stack className="member_follower_info">
                 <Box className="follower_img">
-                  <img src={img_path} alt="" />
+                  <img
+                    style={{ cursor: "pointer" }}
+                    src={img_path}
+                    alt=""
+                    onClick={() => visitMemberHandler(follower?.subscriber_id)}
+                  />
                 </Box>
                 <Stack className="member_follower_name">
                   <span>
                     {follower?.subscriber_member_data?.mb_type ?? "USER"}
                   </span>
-                  <p>{follower?.subscriber_member_data?.mb_nick}</p>
+                  <p
+                    style={{ cursor: "pointer" }}
+                    onClick={() => visitMemberHandler(follower?.subscriber_id)}
+                  >
+                    {follower?.subscriber_member_data?.mb_nick}
+                  </p>
                 </Stack>
               </Stack>
               {props.actions_enabled &&
