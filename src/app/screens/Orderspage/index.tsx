@@ -22,6 +22,7 @@ import {
 } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Slice */
 
@@ -55,7 +56,6 @@ export function OrdersPage(props: any) {
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
-  const verifiedMemberdata: Member | null = props.verifiedMemberdata;
 
   useEffect(() => {
     const order = new OrderApiService();

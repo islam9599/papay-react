@@ -31,9 +31,7 @@ import { Product } from "../types/product";
 
 function App() {
   /** Initializations */
-  const [verifiedMemberdata, setVerifiedMemberData] = useState<Member | null>(
-    null
-  );
+
   const [path, setPath] = useState();
   const main_paith = window.location.pathname;
   const [signupOpen, setSignupOpen] = useState(false);
@@ -45,20 +43,6 @@ function App() {
   const cartJson: any = localStorage.getItem("cart_data");
   const current_cart: CartItem[] = JSON.parse(cartJson) ?? [];
   const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
-
-  useEffect(() => {
-    console.log("==== useEffect: App =====");
-    const memberDataJson: any = localStorage.getItem("member_data")
-      ? localStorage.getItem("member_data")
-      : null;
-    const member_data = memberDataJson ? JSON.parse(memberDataJson) : null;
-    if (member_data) {
-      member_data.mb_image = member_data.mb_image
-        ? `${serverApi}/${member_data.mb_image}`
-        : "auth/author_default.jpeg";
-      setVerifiedMemberData(member_data);
-    }
-  }, [signupOpen, loginOpen, cartItems]);
 
   /** Handlers */
 
@@ -159,7 +143,6 @@ function App() {
           handleLogoutClick={handleLogoutClick}
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
-          verifiedMemberdata={verifiedMemberdata}
           cartItems={cartItems}
           onAdd={onAdd}
           onRemove={onRemove}
@@ -177,7 +160,6 @@ function App() {
           handleLogoutClick={handleLogoutClick}
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
-          verifiedMemberdata={verifiedMemberdata}
           cartItems={cartItems}
           onAdd={onAdd}
           onRemove={onRemove}
@@ -195,7 +177,6 @@ function App() {
           handleLogoutClick={handleLogoutClick}
           handleCloseLogout={handleCloseLogout}
           handleLogoutRequest={handleLogoutRequest}
-          verifiedMemberdata={verifiedMemberdata}
           cartItems={cartItems}
           onAdd={onAdd}
           onRemove={onRemove}
@@ -216,11 +197,10 @@ function App() {
           <OrdersPage
             orderRebuild={orderRebuild}
             setOrderRebuild={setOrderRebuild}
-            verifiedMemberdata={verifiedMemberdata}
           />
         </Route>
         <Route path="/member-page">
-          <MemberPage verifiedMemberdata={verifiedMemberdata} />
+          <MemberPage />
         </Route>
         <Route path="/help">
           <HelpPage />

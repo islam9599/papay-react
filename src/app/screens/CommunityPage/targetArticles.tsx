@@ -13,6 +13,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 export function TargetArticles(props: any) {
   /** Initialization */
@@ -22,7 +23,7 @@ export function TargetArticles(props: any) {
   /** Handlers */
   const targetLikeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberdata, Definer.auth_err1);
 
       const memberService = new MemberApiService(),
         like_result: any = await memberService.memberLikeTarget({

@@ -49,6 +49,7 @@ import {
   setChosenMemberBoArticles,
   setChosenSingleBoArticle,
 } from "./slice";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Slice */
 
@@ -84,7 +85,7 @@ const chosenSingleBoArticleRetriever = createSelector(
 
 export function VisitOtherPage(props: any) {
   /** Initializations */
-  const { verifiedMemberdata, chosen_mb_id, chosen_art_id } = props;
+  const { chosen_mb_id, chosen_art_id } = props;
   const {
     setChosenMember,
     setChosenMemberBoArticles,
@@ -164,7 +165,7 @@ export function VisitOtherPage(props: any) {
   };
   const subscribeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberdata, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.subscribe(e.target.value);
       await sweetTopSmallSuccessAlert("subscribed successfully", 700, false);
@@ -178,7 +179,7 @@ export function VisitOtherPage(props: any) {
   const unsubscribeHandler = async (e: any) => {
     try {
       e.stopPropagation();
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberdata, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.unSubscribe(e.target.value);
       await sweetTopSmallSuccessAlert("unSubscribed successfully", 700, false);

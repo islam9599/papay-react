@@ -19,6 +19,7 @@ import {
 } from "../../../lib/sweetAlert";
 import { connected } from "process";
 import OrderApiService from "../../apiServices/orderApiService";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Selector*/
 const pausedOrdersRetriever = createSelector(
@@ -37,7 +38,7 @@ export function PausedOrders(props: any) {
     try {
       const order_id = event.target.value;
       const data = { order_id: order_id, order_status: "DELETED" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberdata) {
         sweetFailureProvider("Please login first!", true);
       }
       let confirmation = window.confirm(
@@ -57,7 +58,7 @@ export function PausedOrders(props: any) {
     try {
       const order_id = event.target.value;
       const data = { order_id: order_id, order_status: "PROCESS" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberdata) {
         sweetFailureProvider("Please login first!", true);
       }
       let confirmation = window.confirm("Buyurtmaga tolov qilasizmi?");

@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Basket } from "./basket";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 export function NavbarOthers(props: any) {
   return (
@@ -40,7 +41,7 @@ export function NavbarOthers(props: any) {
                 Oshxona
               </NavLink>
             </Box>
-            {props.verifiedMemberdata ? (
+            {verifiedMemberdata ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to="/orders" activeClassName="underline">
                   Buyurtma
@@ -52,7 +53,7 @@ export function NavbarOthers(props: any) {
                 Jamiyat
               </NavLink>
             </Box>
-            {props.verifiedMemberdata ? (
+            {verifiedMemberdata ? (
               <Box className="hover-line" onClick={props.setPath}>
                 <NavLink to="/member-page" activeClassName="underline">
                   Sahifam
@@ -73,7 +74,7 @@ export function NavbarOthers(props: any) {
               onDeleteAll={props.onDeleteAll}
               setOrderRebuild={props.setOrderRebuild}
             />
-            {!props.verifiedMemberdata ? (
+            {!verifiedMemberdata ? (
               <Box>
                 <Button
                   variant="contained"

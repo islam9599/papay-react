@@ -21,6 +21,7 @@ import { retrieveMemberFollowings } from "./selector";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setMemberFollowings } from "./slice";
 import { useHistory } from "react-router-dom";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Slice */
 
@@ -65,7 +66,7 @@ export function MemberFollowings(props: any) {
   const unsubscribeHandler = async (e: any, id: string) => {
     try {
       e.stopPropagation();
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberdata, Definer.auth_err1);
       const followService = new FollowApiService();
       await followService.unSubscribe(id);
       await sweetTopSmallSuccessAlert("unSubscribed successfully", 700, false);

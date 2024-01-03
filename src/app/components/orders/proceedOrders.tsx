@@ -15,6 +15,7 @@ import {
   sweetFailureProvider,
 } from "../../../lib/sweetAlert";
 import OrderApiService from "../../apiServices/orderApiService";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Selector*/
 const processOrdersRetriever = createSelector(
@@ -33,7 +34,7 @@ export function ProceedOrders(props: any) {
     try {
       const order_id = event.target.value;
       const data = { order_id: order_id, order_status: "FINISHED" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberdata) {
         sweetFailureProvider("Please login first!", true);
       }
       let confirmation = window.confirm(

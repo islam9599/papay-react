@@ -9,9 +9,11 @@ export function TViewer(props: any) {
     <Stack
       sx={{
         width: "800px",
+        height: "800px",
         background: "#fff",
         mt: "30px",
         borderRadius: "10px",
+        overflow: "scroll",
       }}
     >
       <Box sx={{ m: "40px" }}>

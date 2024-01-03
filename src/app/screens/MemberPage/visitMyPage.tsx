@@ -50,6 +50,7 @@ import {
   setChosenMemberBoArticles,
   setChosenSingleBoArticle,
 } from "./slice";
+import { verifiedMemberdata } from "../../apiServices/verify";
 
 /** Redux Slice */
 
@@ -86,7 +87,7 @@ const chosenSingleBoArticleRetriever = createSelector(
 export function VisitMyPage(props: any) {
   /** Initializations */
   const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
-  const { verifiedMemberdata } = props;
+
   const {
     setChosenMember,
     setChosenMemberBoArticles,
@@ -109,7 +110,7 @@ export function VisitMyPage(props: any) {
   const [followRebuild, setFollowRebuild] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("member_data")) {
+    if (!verifiedMemberdata) {
       sweetFailureProvider("Please login first!!!", true, true);
     }
 
@@ -124,7 +125,7 @@ export function VisitMyPage(props: any) {
       .getChosenMember(verifiedMemberdata?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
-  }, [memberAticleSearchObj, articleRebuild, followRebuild, chosenMember]);
+  }, [memberAticleSearchObj, articleRebuild, followRebuild]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {
