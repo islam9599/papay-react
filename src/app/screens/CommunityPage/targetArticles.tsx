@@ -43,7 +43,7 @@ export function TargetArticles(props: any) {
       {props.targetBoArticles.map((article: BoArticle) => {
         const art_image_url = article?.art_image
           ? `${serverApi}/${article.art_image}`
-          : "/icons/author_default.jpeg";
+          : "/auth/gallery.png";
         const auth_image = article?.member_data?.mb_image
           ? `${serverApi}/${article?.member_data.mb_image}`
           : "/auth/author_default.jpeg";

@@ -1,5 +1,5 @@
 import { Favorite, FavoriteBorder, RemoveRedEye } from "@mui/icons-material";
-import { Box, Checkbox, Link, Stack } from "@mui/material";
+import { Avatar, Box, Checkbox, Link, Stack } from "@mui/material";
 import React from "react";
 import { BoArticle } from "../../../types/boArticle";
 import { serverApi } from "../../../lib/config";
@@ -53,7 +53,6 @@ export function MemberPosts(props: any) {
   return (
     <Stack
       style={{
-        overflowY: "scroll",
         width: "100%",
         height: "700px",
         marginTop: "20px",
@@ -62,7 +61,7 @@ export function MemberPosts(props: any) {
       {chosenMemberBoArticles.map((article: BoArticle) => {
         const image_path = article.art_image
           ? `${serverApi}/${article?.art_image}`
-          : "/icons/author_default.jpeg";
+          : "/auth/gallery.png";
         return (
           <Stack
             className="my_article_wrapper"
@@ -84,7 +83,12 @@ export function MemberPosts(props: any) {
                   marginLeft={"15px"}
                   marginTop={"15px"}
                 >
-                  <Box className="author_info">
+                  <Stack
+                    className="author_info"
+                    flexDirection={"row"}
+                    alignItems={"center"}
+                    sx={{ w: 40, h: 40 }}
+                  >
                     <img
                       src={
                         article.member_data?.mb_image
@@ -94,7 +98,7 @@ export function MemberPosts(props: any) {
                       alt="member_image"
                     />
                     <span>{article.member_data?.mb_nick}</span>
-                  </Box>
+                  </Stack>
                   <Box className="article_desc">
                     <p>{article?.bo_id}</p>
                     <span>{article?.art_subject}</span>

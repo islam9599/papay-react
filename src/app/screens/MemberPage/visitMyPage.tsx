@@ -124,7 +124,7 @@ export function VisitMyPage(props: any) {
       .getChosenMember(verifiedMemberdata?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
-  }, [memberAticleSearchObj, articleRebuild, followRebuild]);
+  }, [memberAticleSearchObj, articleRebuild, followRebuild, chosenMember]);
 
   /** Handlers */
   const handleChange = (event: any, newValue: string) => {

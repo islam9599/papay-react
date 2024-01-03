@@ -1,3 +1,7 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
 .member_page {
   width: 100%;
   height: auto;
@@ -51,11 +55,12 @@
 }
 
 .member_page .my_page .my_page_left .target_articles_container .user_img {
-  width: 200px;
-  height: 230px;
-  flex-shrink: 0;
+  width: 170px;
+  height: 150px;
+  background-size: cover;
   border-radius: 30px 0px 0px 30px;
   background: lightgray 50% / cover no-repeat;
+  margin-top: 35px;
 }
 
 .member_page .my_page .my_page_left.target_articles_container .author_info {
@@ -76,7 +81,7 @@
   width: 36px;
   height: 36px;
   border-radius: 35px;
-  background: lightgray 50% / cover no-repeat;
+  background: lightgray 50% / contain no-repeat;
   margin-right: 10px;
 }
 
@@ -86,22 +91,26 @@
   .author_info
   span {
   width: 40px;
+  height: 60px;
   color: #fff;
   font-family: "Poppins";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 16px; /* 162.5% */
+  line-height: 10px; /* 162.5% */
 }
 
 .member_page .my_page .my_page_left .target_articles_container .article_desc {
-  width: 282px;
+  width: 100%;
   height: auto;
   margin-top: 15px;
   display: flex;
   flex-direction: column;
 }
 .member_page .my_page .my_page_left .target_articles_container .article_desc p {
+  width: 100%;
+  height: auto;
+  display: flex;
   color: #e3c08d;
   font-family: "Poppins";
   font-size: 26px;
