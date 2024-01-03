@@ -50,7 +50,11 @@ export function TargetArticles(props: any) {
           : "/auth/author_default.jpeg";
 
         return (
-          <Link key={article._id} className="target_articles_container">
+          <Link
+            key={article._id}
+            className="target_articles_container"
+            href={`/member-page/other?mb_id=${article?.mb_id}&art_id=${article._id}`}
+          >
             <Stack flexDirection={"row"}>
               <Box
                 className="user_img"
