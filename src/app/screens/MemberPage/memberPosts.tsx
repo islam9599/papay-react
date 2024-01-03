@@ -55,7 +55,7 @@ export function MemberPosts(props: any) {
     <Stack
       style={{
         width: "100%",
-        height: "700px",
+        maxHeight: "650px",
         marginTop: "20px",
       }}
     >
