@@ -219,7 +219,7 @@ export function VisitMyPage(props: any) {
                   <Box className="menu_name">Ma'lumotlarni o'zgartirish</Box>
                   <Marginer width="750px" bg="#fff" height="1" />
                   <Box className="menu_content">
-                    <MySettings />
+                    <MySettings chosenMember={chosenMember} />
                   </Box>
                 </TabPanel>
               </Box>
