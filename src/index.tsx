@@ -6,7 +6,7 @@ import { store } from "./app/store";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
-
+import { SocketContext, socket } from "./app/context/socket";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
@@ -19,7 +19,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <SocketContext.Provider value={socket}>
+          <App />
+        </SocketContext.Provider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

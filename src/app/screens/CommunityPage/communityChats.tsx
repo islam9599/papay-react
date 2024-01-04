@@ -1,17 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Marginer from "../../components/marginer";
 import Send from "@mui/icons-material/Send";
+import { SocketContext } from "../../context/socket";
 
 export function CommunityChats() {
+  /** Initializations */
+  const [messagesList, setMessagesList] = useState([]);
+  const socket = useContext(SocketContext);
+  const [onlineUsers, setOnlineUsers] = useState<number>(0);
+
   useEffect(() => {
+    socket.connect();
     console.log("Community page!!!");
-  }, []);
+
+    socket?.on("connect", () => {
+      console.log("Client, connected");
+    });
+
+    socket.on("newMsg", (new_message: any) => {
+      console.log("Client, newMsg");
+    });
+    socket.on("greetMsg", (new_message: any) => {
+      console.log("Client, greetMsg");
+    });
+    socket.on("infoMsg", (msg: any) => {
+      console.log("Client, infoMsg");
+
+      setOnlineUsers(msg.total);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
+
+  /** Handlers */
+
   return (
     <div className="communityCharts_container">
       <Stack flexDirection={"column"}>
         <Box className="chat_title">
-          <span>Jonli Muloqot</span>
+          <span>Jonli Muloqot {onlineUsers} </span>
         </Box>
         <Marginer
           direction="horizontal"
