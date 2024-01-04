@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Marginer from "../../components/marginer";
 import Send from "@mui/icons-material/Send";
 
 export function CommunityChats() {
+  useEffect(() => {
+    console.log("Community page!!!");
+  }, []);
   return (
     <div className="communityCharts_container">
       <Stack flexDirection={"column"}>
