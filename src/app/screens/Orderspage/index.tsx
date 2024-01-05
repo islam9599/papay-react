@@ -93,7 +93,8 @@ export function OrdersPage(props: any) {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    maxWidth: "100%",
+                    maxWidth: "600px",
+                    overflow: "scroll",
                   }}
                   variant="fullWidth"
                 >

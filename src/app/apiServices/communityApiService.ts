@@ -17,7 +17,7 @@ class CommunityApiService {
     this.path = serverApi;
   }
 
-  async getTargetArticle(data: SearchArticleObj) {
+  async getTargetArticle(data: SearchArticleObj): Promise<BoArticle[]> {
     try {
       let url = `/community/target?bo_id=${data.bo_id}&page=${data.page}&limit=${data.limit}`;
       if (data.order) url += `&order=${data.order}`;
@@ -35,7 +35,9 @@ class CommunityApiService {
       throw err;
     }
   }
-  async getMemberCommunityArticle(data: SearchMemberArticleObj) {
+  async getMemberCommunityArticle(
+    data: SearchMemberArticleObj
+  ): Promise<BoArticle[]> {
     try {
       let url = `/community/articles?mb_id=${data.mb_id}&page=${data.page}&limit=${data.limit}`;
 
@@ -53,7 +55,7 @@ class CommunityApiService {
       throw err;
     }
   }
-  public async getChosenArticle(art_id: string) {
+  public async getChosenArticle(art_id: string): Promise<BoArticle> {
     try {
       const url = `/community/single-article/${art_id}`,
         result = await axios.get(this.path + url, {
@@ -70,7 +72,7 @@ class CommunityApiService {
       throw err;
     }
   }
-  public async uploadImageToServer(image: any) {
+  public async uploadImageToServer(image: any): Promise<string> {
     try {
       let form_data = new FormData();
       form_data.append("community_image", image);
@@ -93,7 +95,7 @@ class CommunityApiService {
       throw err;
     }
   }
-  public async createArticle(data: BoArticleInput) {
+  public async createArticle(data: BoArticleInput): Promise<BoArticle> {
     try {
       const url = `/community/create`,
         result = await axios.post(this.path + url, data, {

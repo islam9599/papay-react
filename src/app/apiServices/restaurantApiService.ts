@@ -12,7 +12,7 @@ class RestaurantApiService {
     this.path = serverApi;
   }
 
-  async getTopRestaurants() {
+  async getTopRestaurants(): Promise<Restaurant[]> {
     try {
       const url = "/restaurants?order=top&page=1&limit=4",
         result = await axios.get(this.path + url, { withCredentials: true });
@@ -25,7 +25,7 @@ class RestaurantApiService {
       throw err;
     }
   }
-  async getRestaurants(data: SearchObj) {
+  async getRestaurants(data: SearchObj): Promise<Restaurant[]> {
     try {
       const url = `/restaurants?order=${data.order}&page=${data.page}&limit=${data.limit}`,
         result = await axios.get(this.path + url, { withCredentials: true });
@@ -39,7 +39,7 @@ class RestaurantApiService {
       throw err;
     }
   }
-  async getChosenRestaurant(id: string) {
+  async getChosenRestaurant(id: string): Promise<Restaurant> {
     try {
       const url = `/restaurants/${id}`,
         result = await axios.get(this.path + url, { withCredentials: true });

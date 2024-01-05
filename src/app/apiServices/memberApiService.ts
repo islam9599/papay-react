@@ -10,7 +10,7 @@ class MemberApiService {
   constructor() {
     this.path = serverApi;
   }
-  public async loginRequest(login_data: any) {
+  public async loginRequest(login_data: any): Promise<Member> {
     try {
       const result = await axios.post(this.path + "/login", login_data, {
         withCredentials: true,
@@ -27,7 +27,7 @@ class MemberApiService {
       throw err;
     }
   }
-  public async signupRequest(signup_data: any) {
+  public async signupRequest(signup_data: any): Promise<Member> {
     try {
       const result = await axios.post(this.path + "/signup", signup_data, {
         withCredentials: true,
@@ -60,7 +60,7 @@ class MemberApiService {
       throw err;
     }
   }
-  public async memberLikeTarget(data: any) {
+  public async memberLikeTarget(data: any): Promise<MemberLiken> {
     try {
       const url = "/member-liken",
         result = await axios.post(this.path + url, data, {
@@ -79,7 +79,7 @@ class MemberApiService {
       throw err;
     }
   }
-  public async getChosenMember(id: string) {
+  public async getChosenMember(id: string): Promise<Member> {
     try {
       const url = `/member/${id}`,
         result = await axios.get(this.path + url, {
@@ -98,7 +98,7 @@ class MemberApiService {
       throw err;
     }
   }
-  public async updateMemberData(data: MemberUpdateData) {
+  public async updateMemberData(data: MemberUpdateData): Promise<Member> {
     try {
       let form_data = new FormData();
       form_data.append("mb_nick", data.mb_nick || "");
