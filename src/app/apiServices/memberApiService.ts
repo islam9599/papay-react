@@ -27,7 +27,7 @@ class MemberApiService {
       throw err;
     }
   }
-  public async signupRequest(signup_data: any): Promise<Member> {
+  public async signupRequest(signup_data: any) {
     try {
       const result = await axios.post(this.path + "/signup", signup_data, {
         withCredentials: true,

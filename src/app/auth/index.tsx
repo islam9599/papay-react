@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Modal from "@material-ui/core/Modal";
@@ -38,22 +38,20 @@ export default function AuthentificationModal(props: any) {
   /** Initializations */
 
   const classes = useStyles();
-  // let mb_nick: string = "",
-  //   mb_password: string = "",
-  //   mb_phone: number = 0;
-  const [mb_nick, set_mb_nick] = useState<string>("");
-  const [mb_password, set_mb_password] = useState<string>("");
-  const [mb_phone, set_mb_phone] = useState<number>(0);
+  let mb_nick: string = "",
+    mb_password: string = "",
+    mb_phone: number = 0;
+
   /** Handlers */
 
   const handleUsername = (e: any) => {
-    set_mb_nick(e.target.value);
+    mb_nick = e.target.value;
   };
   const handlePhone = (e: any) => {
-    set_mb_password(e.target.value);
+    mb_phone = e.target.value;
   };
   const handlePassword = (e: any) => {
-    set_mb_password(e.target.value);
+    mb_password = e.target.value;
   };
 
   const handleSignupRequest = async () => {
